@@ -18,6 +18,9 @@
     NSInteger _rightMostVisibleButtonIndex;
     NSInteger _leftMostVisibleButtonIndex;
     
+    NSInteger _topMostVisibleButtonIndex;
+    NSInteger _bottomMostVisibleButtonIndex;
+    
     SScontentLayoutStyle _layoutStyle;
     CGFloat _fixedButtonSpacing;
     CGFloat _buttonPadding;
@@ -139,10 +142,19 @@
 
     // tile content in visible bounds
     CGRect visibleBounds = [self convertRect:[self bounds] toView:_buttonContainerView];
-    CGFloat minimumVisibleX = CGRectGetMinX(visibleBounds);
-    CGFloat maximumVisibleX = CGRectGetMaxX(visibleBounds);
     
-    [self tileButtonsFromMinX:minimumVisibleX toMaxX:maximumVisibleX];
+    if (_layoutStyle == SShorizontalLayout) {
+        
+        CGFloat minimumVisibleX = CGRectGetMinX(visibleBounds);
+        CGFloat maximumVisibleX = CGRectGetMaxX(visibleBounds);
+        [self tileButtonsFromMinX:minimumVisibleX toMaxX:maximumVisibleX];
+        
+    } else {
+        CGFloat minimumVisibleY = CGRectGetMinY(visibleBounds);
+        CGFloat maximumVisibleY = CGRectGetMaxY(visibleBounds);
+        [self tileButtonsFromMinY:minimumVisibleY toMaxY:maximumVisibleY];
+        
+    }
 }
 
 - (void)recenterIfNecessary
@@ -294,6 +306,100 @@
         _leftMostVisibleButtonIndex++;
         if (_leftMostVisibleButtonIndex == [_rollingScrollViewButtons count]) {
             _leftMostVisibleButtonIndex = 0;
+        }
+    }
+}
+
+- (CGFloat)placeNewButtonOnBottom:(CGFloat)bottomEdge
+{
+    _bottomMostVisibleButtonIndex++;
+    if (_bottomMostVisibleButtonIndex == [_rollingScrollViewButtons count]) {
+        _bottomMostVisibleButtonIndex = 0;
+    }
+    
+    UIButton *button = _rollingScrollViewButtons[_bottomMostVisibleButtonIndex];
+    [_buttonContainerView addSubview:button];
+    [_visibleButtons addObject:button]; // add bottommost label at the end of the array
+    
+    CGRect frame = [button frame];
+    frame.origin.y = bottomEdge;
+    frame.origin.x = [_buttonContainerView bounds].size.width - frame.size.width;
+    [button setFrame:frame];
+    return CGRectGetMaxY(frame);
+}
+
+- (CGFloat)placeNewButtonOnTop:(CGFloat)topEdge
+{
+    _topMostVisibleButtonIndex--;
+    if (_topMostVisibleButtonIndex < 0) {
+        _topMostVisibleButtonIndex = [_rollingScrollViewButtons count] - 1;
+    }
+    
+    UIButton *button = _rollingScrollViewButtons[_topMostVisibleButtonIndex];
+    [_buttonContainerView addSubview:button];
+    [_visibleButtons insertObject:button atIndex:0]; // add leftmost label at the beginning of the array
+    
+    CGRect frame = [button frame];
+    frame.origin.y = topEdge - frame.size.height;
+    frame.origin.x = [_buttonContainerView bounds].size.width - frame.size.width;
+    [button setFrame:frame];
+    
+    return CGRectGetMinY(frame);
+}
+
+- (void)tileButtonsFromMinY:(CGFloat)minimumVisibleY toMaxY:(CGFloat)maximumVisibleY
+{
+    // the upcoming tiling logic depends on there already being at least one label in the visibleLabels array, so
+    // to kick off the tiling we need to make sure there's at least one label
+    if ([_visibleButtons count] == 0)
+    {
+        _bottomMostVisibleButtonIndex = 0;
+        _topMostVisibleButtonIndex = 0;
+        [self placeNewButtonOnBottom:minimumVisibleY];
+    }
+    
+    // add labels that are missing on right side
+    UIButton *lastButton = [_visibleButtons lastObject];
+    CGFloat bottomEdge = CGRectGetMaxY([lastButton frame]);
+    
+    while (bottomEdge < maximumVisibleY)
+    {
+        bottomEdge = [self placeNewButtonOnBottom:bottomEdge];
+    }
+    
+    // add labels that are missing on left side
+    UIButton *firstButton = _visibleButtons[0];
+    CGFloat topEdge = CGRectGetMinY([firstButton frame]);
+    while (topEdge > minimumVisibleY)
+    {
+        topEdge = [self placeNewButtonOnTop:topEdge];
+    }
+    
+    // remove labels that have fallen off right edge
+    lastButton = [_visibleButtons lastObject];
+    while ([lastButton frame].origin.y > maximumVisibleY)
+    {
+        [lastButton removeFromSuperview];
+        [_visibleButtons removeLastObject];
+        lastButton = [_visibleButtons lastObject];
+        
+        _bottomMostVisibleButtonIndex--;
+        if (_bottomMostVisibleButtonIndex < 0) {
+            _bottomMostVisibleButtonIndex = [_rollingScrollViewButtons count] - 1;
+        }
+    }
+    
+    // remove labels that have fallen off left edge
+    firstButton = _visibleButtons[0];
+    while (CGRectGetMaxY([firstButton frame]) < minimumVisibleY)
+    {
+        [firstButton removeFromSuperview];
+        [_visibleButtons removeObjectAtIndex:0];
+        firstButton = _visibleButtons[0];
+        
+        _topMostVisibleButtonIndex++;
+        if (_topMostVisibleButtonIndex == [_rollingScrollViewButtons count]) {
+            _topMostVisibleButtonIndex = 0;
         }
     }
 }
