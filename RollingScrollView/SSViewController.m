@@ -25,7 +25,8 @@
     //_buttonTitleArray = [NSArray arrayWithObjects:@"One", @"Two", @"Three", @"Four", @"Five", @"Six", @"Seven", @"Eight", @"Nine", @"Ten", @"Eleven", @"Twelve", @"Thirteen", @"Fourteen", nil];
     _buttonTitleArray = [NSArray arrayWithObjects:@"One", @"Two", nil];
     
-    [self.rollinButtonScrollView setLayoutStyle:SShorizontalLayout];
+    self.rollinButtonScrollView.layoutStyle = SShorizontalLayout;
+    self.rollinButtonScrollView.fixedButtonSpacing = 50.0f;
     [self.rollinButtonScrollView setButtonTitles:_buttonTitleArray];
     [self.rollinButtonScrollView createButtonArray];
 }

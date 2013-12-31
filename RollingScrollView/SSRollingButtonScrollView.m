@@ -20,12 +20,6 @@
     
     NSInteger _topMostVisibleButtonIndex;
     NSInteger _bottomMostVisibleButtonIndex;
-    
-    SScontentLayoutStyle _layoutStyle;
-    CGFloat _fixedButtonSpacing;
-    CGFloat _buttonPadding;
-    UIColor *_notSelectedButtonTitleColor;
-    UIColor *_selectedButtonTitleColor;
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -39,12 +33,12 @@
         _visibleButtons = [NSMutableArray array];
         _buttonContainerView = [[UIView alloc] init];
         
-        _fixedButtonSpacing = -1.0f;
-        _buttonPadding = 0.0f;
+        self.fixedButtonSpacing = -1.0f;
+        self.buttonPadding = 0.0f;
         self.buttonNotSelectedFont = [UIFont systemFontOfSize:15];
         self.buttonSelectedFont = [UIFont boldSystemFontOfSize:17];
-        _notSelectedButtonTitleColor = [UIColor grayColor];
-        _selectedButtonTitleColor = [UIColor blueColor];
+        self.notSelectedButtonTitleColor = [UIColor grayColor];
+        self.selectedButtonTitleColor = [UIColor blueColor];
         
         [self setShowsHorizontalScrollIndicator:NO];
         [self setShowsVerticalScrollIndicator:NO];
@@ -57,16 +51,9 @@
     _rollingScrollViewButtonTitles = [NSMutableArray arrayWithArray:titles];
 }
 
-- (void)setFixedButtonSpacing:(CGFloat)spacing
+- (void)setContentSizeAndButtonContainerViewFrame
 {
-    _fixedButtonSpacing = spacing;
-}
-
-- (void)setLayoutStyle:(SScontentLayoutStyle)style
-{
-    _layoutStyle = style;
-    
-    if (_layoutStyle == SShorizontalLayout) {
+    if (self.layoutStyle == SShorizontalLayout) {
         self.contentSize = CGSizeMake(5000, self.frame.size.height);
     } else {
         self.contentSize = CGSizeMake(self.frame.size.width, 5000);
@@ -78,56 +65,64 @@
 
 - (void)createButtonArray
 {
+    [self setContentSizeAndButtonContainerViewFrame];
+    
     CGFloat x = 0.0f;
     CGFloat y = 0.0f;
     _rollingScrollViewButtons = [NSMutableArray array];
     
-    if (_layoutStyle == SShorizontalLayout) {
+    if (self.layoutStyle == SShorizontalLayout) {
         
-        for (NSString *buttonTitle in _rollingScrollViewButtonTitles) {
+        while (x <= self.frame.size.width) {
             
-            UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
-            
-            [button setTitle:buttonTitle forState:UIControlStateNormal];
-            button.titleLabel.font = self.buttonNotSelectedFont;
-            [button setTitleColor:_notSelectedButtonTitleColor forState:UIControlStateNormal];
-            
-            if (_fixedButtonSpacing < 0) {
-                CGSize fittedButtonSize = [button.titleLabel.text sizeWithAttributes:@{NSFontAttributeName:self.buttonSelectedFont}];
-                button.frame = CGRectMake(x, y, fittedButtonSize.width + (_buttonPadding * 2), self.bounds.size.height);
-                x += (fittedButtonSize.width + (_buttonPadding * 2));
-            } else {
-                button.frame = CGRectMake(x, y, _fixedButtonSpacing + (_buttonPadding * 2), self.bounds.size.height);
-                x += (_fixedButtonSpacing + (_buttonPadding * 2));
+            for (NSString *buttonTitle in _rollingScrollViewButtonTitles) {
+                
+                UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
+                
+                [button setTitle:buttonTitle forState:UIControlStateNormal];
+                button.titleLabel.font = self.buttonNotSelectedFont;
+                [button setTitleColor:self.notSelectedButtonTitleColor forState:UIControlStateNormal];
+                
+                if (self.fixedButtonSpacing < 0) {
+                    CGSize fittedButtonSize = [button.titleLabel.text sizeWithAttributes:@{NSFontAttributeName:self.buttonSelectedFont}];
+                    button.frame = CGRectMake(x, y, fittedButtonSize.width + (self.buttonPadding * 2), self.bounds.size.height);
+                    x += (fittedButtonSize.width + (self.buttonPadding * 2));
+                } else {
+                    button.frame = CGRectMake(x, y, self.fixedButtonSpacing, self.bounds.size.height);
+                    x += (self.fixedButtonSpacing);
+                }
+                
+                [button addTarget:self action:@selector(scrollViewButtonPushed:) forControlEvents:UIControlEventTouchUpInside];
+                
+                [_rollingScrollViewButtons addObject:button];
             }
-            
-            [button addTarget:self action:@selector(scrollViewButtonPushed:) forControlEvents:UIControlEventTouchUpInside];
-            
-            [_rollingScrollViewButtons addObject:button];
         }
         
     } else {
         
-        for (NSString *buttonTitle in _rollingScrollViewButtonTitles) {
+        while (y <= self.frame.size.height) {
             
-            UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
-            
-            [button setTitle:buttonTitle forState:UIControlStateNormal];
-            button.titleLabel.font = self.buttonNotSelectedFont;
-            [button setTitleColor:_notSelectedButtonTitleColor forState:UIControlStateNormal];
-            
-            if (_fixedButtonSpacing < 0) {
-                CGSize fittedButtonSize = [button.titleLabel.text sizeWithAttributes:@{NSFontAttributeName:self.buttonSelectedFont}];
-                button.frame = CGRectMake(x, y, self.bounds.size.width, fittedButtonSize.height + (_buttonPadding * 2));
-                y += (fittedButtonSize.height + (_buttonPadding * 2));
-            } else {
-                button.frame = CGRectMake(x, y, self.bounds.size.width, _fixedButtonSpacing + (_buttonPadding * 2));
-                y += (_fixedButtonSpacing + (_buttonPadding *2));
+            for (NSString *buttonTitle in _rollingScrollViewButtonTitles) {
+                
+                UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
+                
+                [button setTitle:buttonTitle forState:UIControlStateNormal];
+                button.titleLabel.font = self.buttonNotSelectedFont;
+                [button setTitleColor:self.notSelectedButtonTitleColor forState:UIControlStateNormal];
+                
+                if (self.fixedButtonSpacing < 0) {
+                    CGSize fittedButtonSize = [button.titleLabel.text sizeWithAttributes:@{NSFontAttributeName:self.buttonSelectedFont}];
+                    button.frame = CGRectMake(x, y, self.bounds.size.width, fittedButtonSize.height + (self.buttonPadding * 2));
+                    y += (fittedButtonSize.height + (self.buttonPadding * 2));
+                } else {
+                    button.frame = CGRectMake(x, y, self.bounds.size.width, self.fixedButtonSpacing);
+                    y += (self.fixedButtonSpacing);
+                }
+                
+                [button addTarget:self action:@selector(scrollViewButtonPushed:) forControlEvents:UIControlEventTouchUpInside];
+                
+                [_rollingScrollViewButtons addObject:button];
             }
-            
-            [button addTarget:self action:@selector(scrollViewButtonPushed:) forControlEvents:UIControlEventTouchUpInside];
-            
-            [_rollingScrollViewButtons addObject:button];
         }
     }
     
@@ -143,7 +138,7 @@
     // tile content in visible bounds
     CGRect visibleBounds = [self convertRect:[self bounds] toView:_buttonContainerView];
     
-    if (_layoutStyle == SShorizontalLayout) {
+    if (self.layoutStyle == SShorizontalLayout) {
         
         CGFloat minimumVisibleX = CGRectGetMinX(visibleBounds);
         CGFloat maximumVisibleX = CGRectGetMaxX(visibleBounds);
@@ -159,7 +154,7 @@
 
 - (void)recenterIfNecessary
 {
-    if (_layoutStyle == SShorizontalLayout) {
+    if (self.layoutStyle == SShorizontalLayout) {
         
         CGPoint currentOffset = [self contentOffset];
         CGFloat contentWidth = [self contentSize].width;
