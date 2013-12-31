@@ -7,8 +7,12 @@
 //
 
 #import "SSViewController.h"
+#import "SSRollingButtonScrollView.h"
 
 @interface SSViewController ()
+{
+    NSArray *_buttonTitleArray;
+}
 
 @end
 
@@ -18,6 +22,11 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    _buttonTitleArray = [NSArray arrayWithObjects:@"One", @"Two", @"Three", @"Four", @"Five", @"Six", @"Seven", @"Eight", @"Nine", @"Ten", @"Eleven", @"Twelve", @"Thirteen", @"Fourteen", nil];
+    
+    [self.rollinButtonScrollView setLayoutStyle:SShorizontalLayout];
+    [self.rollinButtonScrollView setButtonTitles:_buttonTitleArray];
+    [self.rollinButtonScrollView createButtonArray];
 }
 
 - (void)didReceiveMemoryWarning

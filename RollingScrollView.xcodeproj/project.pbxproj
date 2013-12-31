@@ -21,6 +21,7 @@
 		4511C103186E44FB00BD7BFD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4511C0E5186E44FA00BD7BFD /* UIKit.framework */; };
 		4511C10B186E44FB00BD7BFD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4511C109186E44FB00BD7BFD /* InfoPlist.strings */; };
 		4511C10D186E44FB00BD7BFD /* RollingScrollViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4511C10C186E44FB00BD7BFD /* RollingScrollViewTests.m */; };
+		4511C118186E456E00BD7BFD /* SSRollingButtonScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4511C117186E456E00BD7BFD /* SSRollingButtonScrollView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,8 @@
 		4511C108186E44FB00BD7BFD /* RollingScrollViewTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RollingScrollViewTests-Info.plist"; sourceTree = "<group>"; };
 		4511C10A186E44FB00BD7BFD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4511C10C186E44FB00BD7BFD /* RollingScrollViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RollingScrollViewTests.m; sourceTree = "<group>"; };
+		4511C116186E456E00BD7BFD /* SSRollingButtonScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSRollingButtonScrollView.h; sourceTree = "<group>"; };
+		4511C117186E456E00BD7BFD /* SSRollingButtonScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSRollingButtonScrollView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +120,8 @@
 				4511C0F3186E44FA00BD7BFD /* Main.storyboard */,
 				4511C0F6186E44FA00BD7BFD /* SSViewController.h */,
 				4511C0F7186E44FA00BD7BFD /* SSViewController.m */,
+				4511C116186E456E00BD7BFD /* SSRollingButtonScrollView.h */,
+				4511C117186E456E00BD7BFD /* SSRollingButtonScrollView.m */,
 				4511C0F9186E44FA00BD7BFD /* Images.xcassets */,
 				4511C0E8186E44FA00BD7BFD /* Supporting Files */,
 			);
@@ -253,6 +258,7 @@
 				4511C0F8186E44FA00BD7BFD /* SSViewController.m in Sources */,
 				4511C0F2186E44FA00BD7BFD /* SSAppDelegate.m in Sources */,
 				4511C0EE186E44FA00BD7BFD /* main.m in Sources */,
+				4511C118186E456E00BD7BFD /* SSRollingButtonScrollView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

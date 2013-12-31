@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class SSRollingButtonScrollView;
+
 @interface SSViewController : UIViewController
+
+@property (weak, nonatomic) IBOutlet UIView *scrollViewContainer;
+@property (weak, nonatomic) IBOutlet SSRollingButtonScrollView *rollinButtonScrollView;
 
 @end
