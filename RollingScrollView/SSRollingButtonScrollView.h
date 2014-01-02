@@ -25,6 +25,7 @@ typedef enum {
 @property (nonatomic) CGFloat buttonPadding; // Pads button dimensions if fixedButtonSpacing is not used.
 @property (nonatomic, strong) UIColor *notCenterButtonTextColor;
 @property (nonatomic, strong) UIColor *centerButtonTextColor;
+@property (nonatomic) BOOL stopOnCenter;
 
 // The following method must be called before calling "createButtonArray".
 - (void)setButtonTitles:(NSArray *)titles;
