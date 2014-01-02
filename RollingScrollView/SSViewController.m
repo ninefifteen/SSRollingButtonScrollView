@@ -22,11 +22,11 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    //_buttonTitleArray = [NSArray arrayWithObjects:@"One", @"Two", @"Three", @"Four", @"Five", @"Six", @"Seven", @"Eight", @"Nine", @"Ten", @"Eleven", @"Twelve", @"Thirteen", @"Fourteen", nil];
-    _buttonTitleArray = [NSArray arrayWithObjects:@"One", @"Two", nil];
+    _buttonTitleArray = [NSArray arrayWithObjects:@"One", @"Two", @"Three", @"Four", @"Five", @"Six", @"Seven", @"Eight", @"Nine", @"Ten", @"Eleven", @"Twelve", @"Thirteen", @"Fourteen", nil];
+    //_buttonTitleArray = [NSArray arrayWithObjects:@"One", @"Two", nil];
     
-    self.rollinButtonScrollView.layoutStyle = SShorizontalLayout;
-    self.rollinButtonScrollView.fixedButtonSpacing = 50.0f;
+    self.rollinButtonScrollView.layoutStyle = SSverticalLayout;
+    //self.rollinButtonScrollView.fixedButtonSpacing = 80.0f;
     [self.rollinButtonScrollView setButtonTitles:_buttonTitleArray];
     [self.rollinButtonScrollView createButtonArray];
 }

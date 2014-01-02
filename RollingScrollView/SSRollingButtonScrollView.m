@@ -160,42 +160,62 @@
         [self tileButtonsFromMinY:minimumVisibleY toMaxY:maximumVisibleY];
     }
     
-    [self determineAndConfigureCenterButton];
+    [self configureCenterButton:[self centerButton]];
 }
 
-- (void)determineAndConfigureCenterButton
+- (void)configureCenterButton:(UIButton *)centerButton
 {
-    if (_layoutStyle == SShorizontalLayout) {
+    if (centerButton != _currentCenterButton) {
         
-        UIButton *centerButton = [[UIButton alloc] init];
-        CGFloat visibleContentCenterX = self.contentOffset.x + [self bounds].size.width / 2.0f;
-        CGFloat buttonMinimumDistanceFromCenter = 5000.0f;
-        CGFloat currentButtonDistanceFromCenter = 5000.0f;
+        _currentCenterButton = centerButton;
         
         for (UIButton *button in _visibleButtons) {
-            
-            currentButtonDistanceFromCenter = fabs(visibleContentCenterX - button.center.x);
-            
-            if (currentButtonDistanceFromCenter < buttonMinimumDistanceFromCenter) {
-                buttonMinimumDistanceFromCenter = currentButtonDistanceFromCenter;
-                centerButton = button;
-            }
+            button.titleLabel.font = self.buttonNotCenterFont;
+            button.titleLabel.textColor = self.notCenterButtonTextColor;
         }
+        centerButton.titleLabel.font = self.buttonCenterFont;
+        centerButton.titleLabel.textColor = self.centerButtonTextColor;
         
-        if (centerButton != _currentCenterButton) {
-            
-            _currentCenterButton = centerButton;
-            
-            for (UIButton *button in _visibleButtons) {
-                button.titleLabel.font = self.buttonNotCenterFont;
-                button.titleLabel.textColor = self.notCenterButtonTextColor;
-            }
-            centerButton.titleLabel.font = self.buttonCenterFont;
-            centerButton.titleLabel.textColor = self.centerButtonTextColor;
-            
-            [self scrollViewButtonIsInCenter:_currentCenterButton];
+        [self scrollViewButtonIsInCenter:_currentCenterButton];
+    }
+}
+
+- (UIButton *)centerButton
+{
+    UIButton *centerButton = [[UIButton alloc] init];
+    
+    CGFloat buttonMinimumDistanceFromCenter = 5000.0f;
+    CGFloat currentButtonDistanceFromCenter = 5000.0f;
+    
+    for (UIButton *button in _visibleButtons) {
+        
+        currentButtonDistanceFromCenter = fabs([self buttonDistanceFromCenter:button]);
+        
+        if (currentButtonDistanceFromCenter < buttonMinimumDistanceFromCenter) {
+            buttonMinimumDistanceFromCenter = currentButtonDistanceFromCenter;
+            centerButton = button;
         }
     }
+    
+    return centerButton;
+}
+
+- (CGFloat)buttonDistanceFromCenter:(UIButton *)button
+{
+    CGFloat distanceFromCenter;
+    
+    if (_layoutStyle == SShorizontalLayout) {
+        
+        CGFloat visibleContentCenterX = self.contentOffset.x + [self bounds].size.width / 2.0f;
+        distanceFromCenter = visibleContentCenterX - button.center.x;
+        
+    } else {
+        
+        CGFloat visibleContentCenterY = self.contentOffset.y + [self bounds].size.height / 2.0f;
+        distanceFromCenter = visibleContentCenterY - button.center.y;
+    }
+    
+    return distanceFromCenter;
 }
 
 - (void)recenterIfNecessary
@@ -459,7 +479,7 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if (scrollView == self) {
+    if (_layoutStyle == SShorizontalLayout) {
         
         CGPoint currentOffset = self.contentOffset;
         NSTimeInterval currentTime = [NSDate timeIntervalSinceReferenceDate];
@@ -469,8 +489,29 @@
         
         if (scrollView.decelerating) {
             if (fabsf(_scrollVelocity) < 150) {
-                //CGPoint targetOffset = CGPointMake(buttonIndex * 88.0f, 0.0f);
-                //[scrollView setContentOffset:targetOffset animated:YES];
+                UIButton *centerButton = [self centerButton];
+                CGFloat distanceFromCenter = [self buttonDistanceFromCenter:centerButton];
+                CGPoint targetOffset = CGPointMake(currentOffset.x - distanceFromCenter, 0.0f);
+                [scrollView setContentOffset:targetOffset animated:YES];
+            }
+        }
+        _lastOffset = currentOffset;
+        _lastTimeCapture = currentTime;
+        
+    } else {
+        
+        CGPoint currentOffset = self.contentOffset;
+        NSTimeInterval currentTime = [NSDate timeIntervalSinceReferenceDate];
+        NSTimeInterval timeChange = currentTime - _lastTimeCapture;
+        CGFloat distanceChange = currentOffset.y - _lastOffset.y;
+        _scrollVelocity = distanceChange / timeChange;
+        
+        if (scrollView.decelerating) {
+            if (fabsf(_scrollVelocity) < 75) {
+                UIButton *centerButton = [self centerButton];
+                CGFloat distanceFromCenter = [self buttonDistanceFromCenter:centerButton];
+                CGPoint targetOffset = CGPointMake(0.0f, currentOffset.y - distanceFromCenter);
+                [scrollView setContentOffset:targetOffset animated:YES];
             }
         }
         _lastOffset = currentOffset;
