@@ -13,6 +13,6 @@
 @interface SSViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UIView *scrollViewContainer;
-@property (weak, nonatomic) IBOutlet SSRollingButtonScrollView *rollinButtonScrollView;
+@property (weak, nonatomic) IBOutlet SSRollingButtonScrollView *bottomRollingButtonScrollView;
 
 @end

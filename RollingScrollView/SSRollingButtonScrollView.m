@@ -10,6 +10,8 @@
 
 @implementation SSRollingButtonScrollView
 {
+    BOOL _viewsInitialLoad;
+    
     NSMutableArray *_rollingScrollViewButtonTitles;
     NSMutableArray *_rollingScrollViewButtons;
     NSMutableArray *_visibleButtons;
@@ -31,6 +33,8 @@
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
     if ((self = [super initWithCoder:aDecoder])) {
+        
+        _viewsInitialLoad = YES;
         
         self.contentSize = CGSizeMake(self.frame.size.width, self.frame.size.height);
         
@@ -95,8 +99,9 @@
                 
                 if (self.fixedButtonSpacing < 0) {
                     CGSize fittedButtonSize = [button.titleLabel.text sizeWithAttributes:@{NSFontAttributeName:self.buttonCenterFont}];
-                    button.frame = CGRectMake(x, y, fittedButtonSize.width + (self.buttonPadding * 2), self.bounds.size.height);
-                    x += (fittedButtonSize.width + (self.buttonPadding * 2));
+                    CGFloat buttonWidth = ceilf((fittedButtonSize.width + (self.buttonPadding * 2)) / 2) * 2;
+                    button.frame = CGRectMake(x, y, buttonWidth, self.bounds.size.height);
+                    x += buttonWidth;
                 } else {
                     button.frame = CGRectMake(x, y, self.fixedButtonSpacing, self.bounds.size.height);
                     x += (self.fixedButtonSpacing);
@@ -122,8 +127,9 @@
                 
                 if (self.fixedButtonSpacing < 0) {
                     CGSize fittedButtonSize = [button.titleLabel.text sizeWithAttributes:@{NSFontAttributeName:self.buttonCenterFont}];
-                    button.frame = CGRectMake(x, y, self.bounds.size.width, fittedButtonSize.height + (self.buttonPadding * 2));
-                    y += (fittedButtonSize.height + (self.buttonPadding * 2));
+                    CGFloat buttonHeight = ceilf((fittedButtonSize.height + (self.buttonPadding * 2)) / 2) * 2;
+                    button.frame = CGRectMake(x, y, self.bounds.size.width, buttonHeight);
+                    y += buttonHeight;
                 } else {
                     button.frame = CGRectMake(x, y, self.bounds.size.width, self.fixedButtonSpacing);
                     y += (self.fixedButtonSpacing);
@@ -137,6 +143,7 @@
     }
     
     [self addSubview:_buttonContainerView];
+    [self moveCenterButtonToViewCenterAnimated:YES];
 }
 
 - (void)layoutSubviews
@@ -161,7 +168,12 @@
         [self tileButtonsFromMinY:minimumVisibleY toMaxY:maximumVisibleY];
     }
     
-    [self configureCenterButton:[self centerButton]];
+    [self configureCenterButton:[self getCenterButton]];
+    
+    if (_viewsInitialLoad) {
+        [self moveCenterButtonToViewCenterAnimated:NO];
+        _viewsInitialLoad = NO;
+    }
 }
 
 - (void)configureCenterButton:(UIButton *)centerButton
@@ -179,7 +191,7 @@
     }
 }
 
-- (UIButton *)centerButton
+- (UIButton *)getCenterButton
 {
     UIButton *centerButton = [[UIButton alloc] init];
     
@@ -215,6 +227,32 @@
     }
     
     return distanceFromCenter;
+}
+
+- (void)moveCenterButtonToViewCenterAnimated:(BOOL)animated
+{
+    if (_layoutStyle == SShorizontalLayout) {
+        
+        CGPoint currentOffset = self.contentOffset;
+        UIButton *centerButton = [self getCenterButton];
+        CGFloat distanceFromCenter = [self buttonDistanceFromCenter:centerButton];
+        
+        CGPoint targetOffset = CGPointMake(currentOffset.x - distanceFromCenter, 0.0f);
+        [self setContentOffset:targetOffset animated:animated];
+        
+        [self scrollViewButtonIsInCenter:centerButton];
+        
+    } else {
+        
+        CGPoint currentOffset = self.contentOffset;
+        UIButton *centerButton = [self getCenterButton];
+        CGFloat distanceFromCenter = [self buttonDistanceFromCenter:centerButton];
+        
+        CGPoint targetOffset = CGPointMake(0.0f, currentOffset.y - distanceFromCenter);
+        [self setContentOffset:targetOffset animated:animated];
+        
+        [self scrollViewButtonIsInCenter:centerButton];
+    }
 }
 
 - (void)recenterIfNecessary
@@ -489,16 +527,8 @@
             _scrollVelocity = distanceChange / timeChange;
             
             if (scrollView.decelerating) {
-                
                 if (fabsf(_scrollVelocity) < 150) {
-                    
-                    UIButton *centerButton = [self centerButton];
-                    CGFloat distanceFromCenter = [self buttonDistanceFromCenter:centerButton];
-                    
-                    CGPoint targetOffset = CGPointMake(currentOffset.x - distanceFromCenter, 0.0f);
-                    [scrollView setContentOffset:targetOffset animated:YES];
-                    
-                    [self scrollViewButtonIsInCenter:centerButton];
+                    [self moveCenterButtonToViewCenterAnimated:YES];
                 }
             }
             _lastOffset = currentOffset;
@@ -513,16 +543,8 @@
             _scrollVelocity = distanceChange / timeChange;
             
             if (scrollView.decelerating) {
-                
                 if (fabsf(_scrollVelocity) < 75) {
-                    
-                    UIButton *centerButton = [self centerButton];
-                    CGFloat distanceFromCenter = [self buttonDistanceFromCenter:centerButton];
-                    
-                    CGPoint targetOffset = CGPointMake(0.0f, currentOffset.y - distanceFromCenter);
-                    [scrollView setContentOffset:targetOffset animated:YES];
-                    
-                    [self scrollViewButtonIsInCenter:centerButton];
+                    [self moveCenterButtonToViewCenterAnimated:YES];
                 }
             }
             _lastOffset = currentOffset;
@@ -534,65 +556,11 @@
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
     if (self.stopOnCenter) {
-        
         if (!decelerate) {
-            
-            if (_layoutStyle == SShorizontalLayout) {
-                
-                CGPoint currentOffset = self.contentOffset;
-                UIButton *centerButton = [self centerButton];
-                CGFloat distanceFromCenter = [self buttonDistanceFromCenter:centerButton];
-                
-                CGPoint targetOffset = CGPointMake(currentOffset.x - distanceFromCenter, 0.0f);
-                [scrollView setContentOffset:targetOffset animated:YES];
-                
-                [self scrollViewButtonIsInCenter:centerButton];
-                
-            } else {
-                
-                CGPoint currentOffset = self.contentOffset;
-                UIButton *centerButton = [self centerButton];
-                CGFloat distanceFromCenter = [self buttonDistanceFromCenter:centerButton];
-                
-                CGPoint targetOffset = CGPointMake(0.0f, currentOffset.y - distanceFromCenter);
-                [scrollView setContentOffset:targetOffset animated:YES];
-                
-                [self scrollViewButtonIsInCenter:centerButton];
-            }
+            [self moveCenterButtonToViewCenterAnimated:YES];
         }
     }
 }
-
-/*
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
-{
-    if (scrollView == self.scrollView) {
-        // Determine the scrollView stopping point, or ContentOffset when scrollView dragging ends and will not decelerate.
-        if (!decelerate) {
-            
-            CGPoint currentOffset = self.scrollView.contentOffset;
-            
-            NSInteger buttonIndex = floor(currentOffset.x / 88.0f);
-            
-            // if ((currentOffset.x % 88) > 44)
-            if ((currentOffset.x - (floor(currentOffset.x / 88.0f) * 88.0f)) > 44) {
-                buttonIndex++;
-            }
-            
-            CGPoint targetOffset = CGPointMake(buttonIndex * 88.0f, 0.0f);
-            [scrollView setContentOffset:targetOffset animated:YES];
-            
-            _scrollViewSelectedIndex = buttonIndex + 1;
-            
-            _fetchedResultsController = nil;
-            [self.tableView reloadData];
-            if (!_isLoadingData) {
-                [self performFetch];
-            }
-        }
-    }
-}
- */
 
 - (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView
 {

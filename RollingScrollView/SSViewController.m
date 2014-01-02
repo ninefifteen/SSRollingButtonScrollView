@@ -11,7 +11,7 @@
 
 @interface SSViewController ()
 {
-    NSArray *_buttonTitleArray;
+    NSArray *_bottomButtonTitles;
 }
 
 @end
@@ -22,13 +22,16 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    _buttonTitleArray = [NSArray arrayWithObjects:@"One", @"Two", @"Three", @"Four", @"Five", @"Six", @"Seven", @"Eight", @"Nine", @"Ten", @"Eleven", @"Twelve", @"Thirteen", @"Fourteen", nil];
-    //_buttonTitleArray = [NSArray arrayWithObjects:@"One", @"Two", nil];
+    //_bottomButtonTitles = [NSArray arrayWithObjects:@"One", @"Two", @"Three", @"Four", @"Five", @"Six", @"Seven", @"Eight", @"Nine", @"Ten", @"Eleven", @"Twelve", @"Thirteen", @"Fourteen", nil];
+    _bottomButtonTitles = [NSArray arrayWithObjects:@"*0*", @"*1*", @"*2*", @"*3*", @"*4*", @"*5*", @"*7*", @"*8*", @"*9*", nil];
+    //_bottomButtonTitles = [NSArray arrayWithObjects:@"X", @"X", @"X", @"X", @"X", @"X", @"X", @"X", @"X", nil];
+    //_bottomButtonTitles = [NSArray arrayWithObjects:@"One", @"Two", nil];
     
-    self.rollinButtonScrollView.layoutStyle = SSverticalLayout;
-    //self.rollinButtonScrollView.fixedButtonSpacing = 80.0f;
-    [self.rollinButtonScrollView setButtonTitles:_buttonTitleArray];
-    [self.rollinButtonScrollView createButtonArray];
+    self.bottomRollingButtonScrollView.layoutStyle = SShorizontalLayout;
+    //self.bottomRollingButtonScrollView.fixedButtonSpacing = 50.0f;
+    [self.bottomRollingButtonScrollView setButtonTitles:_bottomButtonTitles];
+    self.bottomRollingButtonScrollView.buttonCenterFont = [UIFont boldSystemFontOfSize:24];
+    [self.bottomRollingButtonScrollView createButtonArray];
 }
 
 - (void)didReceiveMemoryWarning
