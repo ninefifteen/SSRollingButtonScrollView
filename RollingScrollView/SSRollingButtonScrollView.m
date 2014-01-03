@@ -96,6 +96,7 @@
                 [button setTitle:buttonTitle forState:UIControlStateNormal];
                 button.titleLabel.font = self.buttonNotCenterFont;
                 [button setTitleColor:self.notCenterButtonTextColor forState:UIControlStateNormal];
+                [button setTitleColor:self.centerButtonTextColor forState:UIControlStateHighlighted];
                 
                 if (self.fixedButtonSpacing < 0) {
                     CGSize fittedButtonSize = [button.titleLabel.text sizeWithAttributes:@{NSFontAttributeName:self.buttonCenterFont}];
@@ -184,10 +185,11 @@
         
         for (UIButton *button in _visibleButtons) {
             button.titleLabel.font = self.buttonNotCenterFont;
-            button.titleLabel.textColor = self.notCenterButtonTextColor;
+            [button setTitleColor:self.notCenterButtonTextColor forState:UIControlStateNormal];
         }
         centerButton.titleLabel.font = self.buttonCenterFont;
         centerButton.titleLabel.textColor = self.centerButtonTextColor;
+        [centerButton setTitleColor:self.centerButtonTextColor forState:UIControlStateNormal];
     }
 }
 
@@ -240,8 +242,6 @@
         CGPoint targetOffset = CGPointMake(currentOffset.x - distanceFromCenter, 0.0f);
         [self setContentOffset:targetOffset animated:animated];
         
-        [self scrollViewButtonIsInCenter:centerButton];
-        
     } else {
         
         CGPoint currentOffset = self.contentOffset;
@@ -250,8 +250,6 @@
         
         CGPoint targetOffset = CGPointMake(0.0f, currentOffset.y - distanceFromCenter);
         [self setContentOffset:targetOffset animated:animated];
-        
-        [self scrollViewButtonIsInCenter:centerButton];
     }
 }
 
@@ -300,12 +298,12 @@
 
 - (void)scrollViewButtonIsInCenter:(UIButton *)sender
 {
-    
+    [self.ssRollingButtonScrollViewDelegate rollingScrollViewButtonIsInCenter:sender ssRollingButtonScrollView:self];
 }
 
 - (void)scrollViewButtonPushed:(UIButton *)sender
 {
-    
+    [self.ssRollingButtonScrollViewDelegate rollingScrollViewButtonPushed:sender ssRollingButtonScrollView:self];
 }
 
 /*
@@ -558,6 +556,7 @@
     if (self.stopOnCenter) {
         if (!decelerate) {
             [self moveCenterButtonToViewCenterAnimated:YES];
+            [self scrollViewButtonIsInCenter:[self getCenterButton]];
         }
     }
 }
@@ -567,28 +566,10 @@
     //NSLog(@"scrollViewWillBeginDecelerating");
 }
 
-/*
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    if (scrollView == self.scrollView) {
-        //NSLog(@"scrollViewDidEndDecelerating");
-        CGPoint point = self.scrollView.contentOffset;
-        NSInteger buttonIndex = floor(point.x / 88.0f);
-        
-        if ((point.x - (floor(point.x / 88.0f) * 88.0f)) > 44) {
-            buttonIndex++;
-        }
-        
-        _scrollViewSelectedIndex = buttonIndex + 1;
-        
-        _fetchedResultsController = nil;
-        [self.tableView reloadData];
-        if (!_isLoadingData) {
-            [self performFetch];
-        }
-    }
+    [self scrollViewButtonIsInCenter:[self getCenterButton]];
 }
- */
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
 {

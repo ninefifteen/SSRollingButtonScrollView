@@ -13,7 +13,18 @@ typedef enum {
     SSverticalLayout
 } SScontentLayoutStyle;
 
+@class SSRollingButtonScrollView;
+
+@protocol SSRollingButtonScrollViewDelegate <NSObject>
+
+- (void)rollingScrollViewButtonPushed:(UIButton *)button ssRollingButtonScrollView:(SSRollingButtonScrollView *)rollingButtonScrollView;
+- (void)rollingScrollViewButtonIsInCenter:(UIButton *)button ssRollingButtonScrollView:(SSRollingButtonScrollView *)rollingButtonScrollView;
+
+@end
+
 @interface SSRollingButtonScrollView : UIScrollView <UIScrollViewDelegate>
+
+@property (nonatomic, weak) id <SSRollingButtonScrollViewDelegate> ssRollingButtonScrollViewDelegate;
 
 // Mandatory. Must be set before calling "createButtonArray".
 @property (nonatomic) SScontentLayoutStyle layoutStyle;

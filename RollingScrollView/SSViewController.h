@@ -14,5 +14,6 @@
 
 @property (weak, nonatomic) IBOutlet UIView *scrollViewContainer;
 @property (weak, nonatomic) IBOutlet SSRollingButtonScrollView *bottomRollingButtonScrollView;
+@property (weak, nonatomic) IBOutlet SSRollingButtonScrollView *leftRollingButtonScrollView;
 
 @end
