@@ -40,7 +40,7 @@
     
     self.leftRollingButtonScrollView.layoutStyle = SSverticalLayout;
     [self.leftRollingButtonScrollView setButtonTitles:_leftButtonTitles];
-    self.leftRollingButtonScrollView.fixedButtonSpacing = 30.0f;
+    self.leftRollingButtonScrollView.fixedButtonHeight = 30.0f;
     self.leftRollingButtonScrollView.buttonCenterFont = [UIFont boldSystemFontOfSize:20];
     [self.leftRollingButtonScrollView createButtonArray];
     self.leftRollingButtonScrollView.ssRollingButtonScrollViewDelegate = self;

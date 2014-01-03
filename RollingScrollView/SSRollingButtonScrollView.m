@@ -44,8 +44,9 @@
         _buttonContainerView = [[UIView alloc] init];
         _currentCenterButton = [[UIButton alloc] init];
         
-        self.fixedButtonSpacing = -1.0f;
-        self.buttonPadding = 0.0f;
+        self.fixedButtonWidth = -1.0f;
+        self.fixedButtonHeight = -1.0f;
+        self.spacingBetweenButtons = 0.0f;
         self.buttonNotCenterFont = [UIFont systemFontOfSize:15];
         self.buttonCenterFont = [UIFont boldSystemFontOfSize:17];
         self.notCenterButtonTextColor = [UIColor grayColor];
@@ -84,6 +85,8 @@
     
     CGFloat x = 0.0f;
     CGFloat y = 0.0f;
+    CGFloat buttonWidth;
+    CGFloat buttonHeight;
     _rollingScrollViewButtons = [NSMutableArray array];
     
     if (self.layoutStyle == SShorizontalLayout) {
@@ -99,15 +102,23 @@
                 [button setTitleColor:self.notCenterButtonTextColor forState:UIControlStateNormal];
                 [button setTitleColor:self.centerButtonTextColor forState:UIControlStateHighlighted];
                 
-                if (self.fixedButtonSpacing < 0) {
-                    CGSize fittedButtonSize = [button.titleLabel.text sizeWithAttributes:@{NSFontAttributeName:self.buttonCenterFont}];
-                    CGFloat buttonWidth = ceilf((fittedButtonSize.width + (self.buttonPadding * 2)) / 2) * 2;
-                    button.frame = CGRectMake(x, y, buttonWidth, self.bounds.size.height);
-                    x += buttonWidth;
+                CGSize fittedButtonSize = [button.titleLabel.text sizeWithAttributes:@{NSFontAttributeName:self.buttonCenterFont}];
+                
+                if (self.fixedButtonWidth < 0) {
+                    buttonWidth = ceilf(fittedButtonSize.width / 2) * 2;
                 } else {
-                    button.frame = CGRectMake(x, y, self.fixedButtonSpacing, self.bounds.size.height);
-                    x += (self.fixedButtonSpacing);
+                    buttonWidth = self.fixedButtonWidth;
                 }
+                
+                if (self.fixedButtonHeight < 0) {
+                    buttonHeight = ceilf(fittedButtonSize.height / 2) * 2;
+                } else {
+                    buttonHeight = self.fixedButtonHeight;
+                }
+                
+                button.frame = CGRectMake(x, y, buttonWidth, buttonHeight);
+                
+                x += buttonWidth + self.spacingBetweenButtons;
                 
                 [button addTarget:self action:@selector(scrollViewButtonPushed:) forControlEvents:UIControlEventTouchUpInside];
                 
@@ -121,21 +132,31 @@
             
             for (NSString *buttonTitle in _rollingScrollViewButtonTitles) {
                 
+                
                 UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
                 
                 [button setTitle:buttonTitle forState:UIControlStateNormal];
                 button.titleLabel.font = self.buttonNotCenterFont;
                 [button setTitleColor:self.notCenterButtonTextColor forState:UIControlStateNormal];
+                [button setTitleColor:self.centerButtonTextColor forState:UIControlStateHighlighted];
                 
-                if (self.fixedButtonSpacing < 0) {
-                    CGSize fittedButtonSize = [button.titleLabel.text sizeWithAttributes:@{NSFontAttributeName:self.buttonCenterFont}];
-                    CGFloat buttonHeight = ceilf((fittedButtonSize.height + (self.buttonPadding * 2)) / 2) * 2;
-                    button.frame = CGRectMake(x, y, self.bounds.size.width, buttonHeight);
-                    y += buttonHeight;
+                CGSize fittedButtonSize = [button.titleLabel.text sizeWithAttributes:@{NSFontAttributeName:self.buttonCenterFont}];
+                
+                if (self.fixedButtonWidth < 0) {
+                    buttonWidth = ceilf(fittedButtonSize.width / 2) * 2;
                 } else {
-                    button.frame = CGRectMake(x, y, self.bounds.size.width, self.fixedButtonSpacing);
-                    y += (self.fixedButtonSpacing);
+                    buttonWidth = self.fixedButtonWidth;
                 }
+                
+                if (self.fixedButtonHeight < 0) {
+                    buttonHeight = ceilf(fittedButtonSize.height / 2) * 2;
+                } else {
+                    buttonHeight = self.fixedButtonHeight;
+                }
+                
+                button.frame = CGRectMake(x, y, buttonWidth, buttonHeight);
+                
+                y += buttonHeight + self.spacingBetweenButtons;
                 
                 [button addTarget:self action:@selector(scrollViewButtonPushed:) forControlEvents:UIControlEventTouchUpInside];
                 
@@ -337,7 +358,7 @@
     
     CGRect frame = [button frame];
     frame.origin.x = rightEdge;
-    frame.origin.y = [_buttonContainerView bounds].size.height - frame.size.height;
+    frame.origin.y = ([_buttonContainerView bounds].size.height - frame.size.height) / 2.0f;
     [button setFrame:frame];
     return CGRectGetMaxX(frame);
 }
@@ -355,7 +376,7 @@
     
     CGRect frame = [button frame];
     frame.origin.x = leftEdge - frame.size.width;
-    frame.origin.y = [_buttonContainerView bounds].size.height - frame.size.height;
+    frame.origin.y = ([_buttonContainerView bounds].size.height - frame.size.height) / 2.0f;
     [button setFrame:frame];
     
     return CGRectGetMinX(frame);
@@ -378,6 +399,7 @@
     
     while (rightEdge < maximumVisibleX)
     {
+        rightEdge += self.spacingBetweenButtons;
         rightEdge = [self placeNewButtonOnRight:rightEdge];
     }
     
@@ -386,6 +408,7 @@
     CGFloat leftEdge = CGRectGetMinX([firstButton frame]);
     while (leftEdge > minimumVisibleX)
     {
+        leftEdge -= self.spacingBetweenButtons;
         leftEdge = [self placeNewButtonOnLeft:leftEdge];
     }
     
@@ -431,7 +454,7 @@
     
     CGRect frame = [button frame];
     frame.origin.y = bottomEdge;
-    frame.origin.x = [_buttonContainerView bounds].size.width - frame.size.width;
+    frame.origin.x = ([_buttonContainerView bounds].size.width - frame.size.width) / 2.0f;
     [button setFrame:frame];
     return CGRectGetMaxY(frame);
 }
@@ -449,7 +472,7 @@
     
     CGRect frame = [button frame];
     frame.origin.y = topEdge - frame.size.height;
-    frame.origin.x = [_buttonContainerView bounds].size.width - frame.size.width;
+    frame.origin.x = ([_buttonContainerView bounds].size.width - frame.size.width) / 2.0f;
     [button setFrame:frame];
     
     return CGRectGetMinY(frame);
@@ -472,6 +495,7 @@
     
     while (bottomEdge < maximumVisibleY)
     {
+        bottomEdge += self.spacingBetweenButtons;
         bottomEdge = [self placeNewButtonOnBottom:bottomEdge];
     }
     
@@ -480,6 +504,7 @@
     CGFloat topEdge = CGRectGetMinY([firstButton frame]);
     while (topEdge > minimumVisibleY)
     {
+        topEdge -= self.spacingBetweenButtons;
         topEdge = [self placeNewButtonOnTop:topEdge];
     }
     

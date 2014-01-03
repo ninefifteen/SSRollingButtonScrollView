@@ -42,8 +42,9 @@ typedef enum {
 // Optional. If set by user, must be set before calling "createButtonArray".
 @property (nonatomic, strong) UIFont *buttonNotCenterFont;
 @property (nonatomic, strong) UIFont *buttonCenterFont;
-@property (nonatomic) CGFloat fixedButtonSpacing; // Sets button origin points a fixed distance apart.
-@property (nonatomic) CGFloat buttonPadding; // Pads button dimensions if fixedButtonSpacing is not used.
+@property (nonatomic) CGFloat fixedButtonWidth;
+@property (nonatomic) CGFloat fixedButtonHeight;
+@property (nonatomic) CGFloat spacingBetweenButtons;
 @property (nonatomic, strong) UIColor *notCenterButtonTextColor;
 @property (nonatomic, strong) UIColor *centerButtonTextColor;
 @property (nonatomic) BOOL stopOnCenter;
