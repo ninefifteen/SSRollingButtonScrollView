@@ -84,9 +84,4 @@
 
 #pragma mark - UIScrollViewDelegate
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    NSLog(@"scrollViewDidScroll in SSViewController");
-}
-
 @end

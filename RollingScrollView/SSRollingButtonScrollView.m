@@ -298,12 +298,17 @@
 
 - (void)scrollViewButtonIsInCenter:(UIButton *)sender
 {
-    [self.ssRollingButtonScrollViewDelegate rollingScrollViewButtonIsInCenter:sender ssRollingButtonScrollView:self];
+    if ([self.ssRollingButtonScrollViewDelegate respondsToSelector:@selector(rollingScrollViewButtonIsInCenter:ssRollingButtonScrollView:)]) {
+        NSLog(@"Here");
+        [self.ssRollingButtonScrollViewDelegate rollingScrollViewButtonIsInCenter:sender ssRollingButtonScrollView:self];
+    }
 }
 
 - (void)scrollViewButtonPushed:(UIButton *)sender
 {
-    [self.ssRollingButtonScrollViewDelegate rollingScrollViewButtonPushed:sender ssRollingButtonScrollView:self];
+    if ([self.ssRollingButtonScrollViewDelegate respondsToSelector:@selector(rollingScrollViewButtonPushed:ssRollingButtonScrollView:)]) {
+        [self.ssRollingButtonScrollViewDelegate rollingScrollViewButtonPushed:sender ssRollingButtonScrollView:self];
+    }
 }
 
 /*
@@ -507,11 +512,6 @@
 
 #pragma mark - UIScrollViewDelegate
 
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
-{
-    //NSLog(@"scrollViewWillBeginDragging");
-}
-
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if (self.stopOnCenter) {
@@ -549,6 +549,24 @@
             _lastTimeCapture = currentTime;
         }
     }
+    
+    if ([self.ssRollingButtonScrollViewDelegate respondsToSelector:@selector(scrollViewDidScroll:)]) {
+        [self.ssRollingButtonScrollViewDelegate scrollViewDidScroll:scrollView];
+    }
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    if ([self.ssRollingButtonScrollViewDelegate respondsToSelector:@selector(scrollViewWillBeginDragging:)]) {
+        [self.ssRollingButtonScrollViewDelegate scrollViewWillBeginDragging:scrollView];
+    }
+}
+
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
+{
+    if ([self.ssRollingButtonScrollViewDelegate respondsToSelector:@selector(scrollViewWillEndDragging:withVelocity:targetContentOffset:)]) {
+        [self.ssRollingButtonScrollViewDelegate scrollViewWillEndDragging:scrollView withVelocity:velocity targetContentOffset:targetContentOffset];
+    }
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
@@ -559,21 +577,33 @@
             [self scrollViewButtonIsInCenter:[self getCenterButton]];
         }
     }
+    
+    if ([self.ssRollingButtonScrollViewDelegate respondsToSelector:@selector(scrollViewDidEndDragging:willDecelerate:)]) {
+        [self.ssRollingButtonScrollViewDelegate scrollViewDidEndDragging:scrollView willDecelerate:decelerate];
+    }
 }
 
 - (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView
 {
-    //NSLog(@"scrollViewWillBeginDecelerating");
+    if ([self.ssRollingButtonScrollViewDelegate respondsToSelector:@selector(scrollViewWillBeginDecelerating:)]) {
+        [self.ssRollingButtonScrollViewDelegate scrollViewWillBeginDecelerating:scrollView];
+    }
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     [self scrollViewButtonIsInCenter:[self getCenterButton]];
+    
+    if ([self.ssRollingButtonScrollViewDelegate respondsToSelector:@selector(scrollViewDidEndDecelerating:)]) {
+        [self.ssRollingButtonScrollViewDelegate scrollViewDidEndDecelerating:scrollView];
+    }
 }
 
-- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
 {
-    //NSLog(@"scrollViewWillEndDragging");
+    if ([self.ssRollingButtonScrollViewDelegate respondsToSelector:@selector(scrollViewDidEndScrollingAnimation:)]) {
+        [self.ssRollingButtonScrollViewDelegate scrollViewDidEndScrollingAnimation:scrollView];
+    }
 }
 
 @end
