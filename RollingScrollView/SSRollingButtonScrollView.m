@@ -51,6 +51,7 @@
         self.notCenterButtonTextColor = [UIColor grayColor];
         self.centerButtonTextColor = [UIColor orangeColor];
         self.stopOnCenter = YES;
+        self.centerPushedButtons = YES;
         
         [self setShowsHorizontalScrollIndicator:NO];
         [self setShowsVerticalScrollIndicator:NO];
@@ -144,7 +145,7 @@
     }
     
     [self addSubview:_buttonContainerView];
-    [self moveCenterButtonToViewCenterAnimated:YES];
+    [self moveButtonToViewCenter:_currentCenterButton animated:YES];
 }
 
 - (void)layoutSubviews
@@ -172,7 +173,7 @@
     [self configureCenterButton:[self getCenterButton]];
     
     if (_viewsInitialLoad) {
-        [self moveCenterButtonToViewCenterAnimated:NO];
+        [self moveButtonToViewCenter:_currentCenterButton animated:NO];
         _viewsInitialLoad = NO;
     }
 }
@@ -231,13 +232,12 @@
     return distanceFromCenter;
 }
 
-- (void)moveCenterButtonToViewCenterAnimated:(BOOL)animated
+- (void)moveButtonToViewCenter:(UIButton *)button animated:(BOOL)animated
 {
     if (_layoutStyle == SShorizontalLayout) {
         
         CGPoint currentOffset = self.contentOffset;
-        UIButton *centerButton = [self getCenterButton];
-        CGFloat distanceFromCenter = [self buttonDistanceFromCenter:centerButton];
+        CGFloat distanceFromCenter = [self buttonDistanceFromCenter:button];
         
         CGPoint targetOffset = CGPointMake(currentOffset.x - distanceFromCenter, 0.0f);
         [self setContentOffset:targetOffset animated:animated];
@@ -245,8 +245,7 @@
     } else {
         
         CGPoint currentOffset = self.contentOffset;
-        UIButton *centerButton = [self getCenterButton];
-        CGFloat distanceFromCenter = [self buttonDistanceFromCenter:centerButton];
+        CGFloat distanceFromCenter = [self buttonDistanceFromCenter:button];
         
         CGPoint targetOffset = CGPointMake(0.0f, currentOffset.y - distanceFromCenter);
         [self setContentOffset:targetOffset animated:animated];
@@ -299,13 +298,16 @@
 - (void)scrollViewButtonIsInCenter:(UIButton *)sender
 {
     if ([self.ssRollingButtonScrollViewDelegate respondsToSelector:@selector(rollingScrollViewButtonIsInCenter:ssRollingButtonScrollView:)]) {
-        NSLog(@"Here");
         [self.ssRollingButtonScrollViewDelegate rollingScrollViewButtonIsInCenter:sender ssRollingButtonScrollView:self];
     }
 }
 
 - (void)scrollViewButtonPushed:(UIButton *)sender
 {
+    if (_centerPushedButtons) {
+        [self moveButtonToViewCenter:sender animated:YES];
+    }
+    
     if ([self.ssRollingButtonScrollViewDelegate respondsToSelector:@selector(rollingScrollViewButtonPushed:ssRollingButtonScrollView:)]) {
         [self.ssRollingButtonScrollViewDelegate rollingScrollViewButtonPushed:sender ssRollingButtonScrollView:self];
     }
@@ -526,7 +528,7 @@
             
             if (scrollView.decelerating) {
                 if (fabsf(_scrollVelocity) < 150) {
-                    [self moveCenterButtonToViewCenterAnimated:YES];
+                    [self moveButtonToViewCenter:_currentCenterButton animated:YES];
                 }
             }
             _lastOffset = currentOffset;
@@ -542,7 +544,7 @@
             
             if (scrollView.decelerating) {
                 if (fabsf(_scrollVelocity) < 75) {
-                    [self moveCenterButtonToViewCenterAnimated:YES];
+                    [self moveButtonToViewCenter:_currentCenterButton animated:YES];
                 }
             }
             _lastOffset = currentOffset;
@@ -573,7 +575,7 @@
 {
     if (self.stopOnCenter) {
         if (!decelerate) {
-            [self moveCenterButtonToViewCenterAnimated:YES];
+            [self moveButtonToViewCenter:_currentCenterButton animated:YES];
             [self scrollViewButtonIsInCenter:[self getCenterButton]];
         }
     }

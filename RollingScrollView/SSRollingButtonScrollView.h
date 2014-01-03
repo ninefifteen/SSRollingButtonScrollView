@@ -47,6 +47,7 @@ typedef enum {
 @property (nonatomic, strong) UIColor *notCenterButtonTextColor;
 @property (nonatomic, strong) UIColor *centerButtonTextColor;
 @property (nonatomic) BOOL stopOnCenter;
+@property (nonatomic) BOOL centerPushedButtons;
 
 // The following method must be called before calling "createButtonArray".
 - (void)setButtonTitles:(NSArray *)titles;
