@@ -51,7 +51,7 @@ How To Use
 	```objectivec
 	#pragma mark - SSRollingButtonScrollViewDelegate
 
-	- (void)rollingScrollViewButtonPushed:(UIButton *)button 		ssRollingButtonScrollView:(SSRollingButtonScrollView *)rollingButtonScrollView
+	- (void)rollingScrollViewButtonPushed:(UIButton *)button ssRollingButtonScrollView:(SSRollingButtonScrollView *)rollingButtonScrollView
 	{
     	NSLog(@"%@", button.titleLabel.text);
 	}
