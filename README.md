@@ -11,7 +11,7 @@ How To Use
 
 2. Add the **AudioToolbox.framework** to your project.
 
-3. Add the appropriate **#import** and **@class** statements to the view controller(s) that will be using an SSRollingButtonScrollView.
+3. Add the appropriate `#import` and `@class` statements to the view controller(s) that will be using an SSRollingButtonScrollView.
 
 	```objectivec
 	//
@@ -40,7 +40,7 @@ How To Use
 	@end
 	```
       
-4. Add `<SSRollingButtonScrollViewDelegate>` to your view controller's **.m** file to make it an **SSRollingButtonScrollView** delegate.
+4. Add `<SSRollingButtonScrollViewDelegate>` to your view controller's **.m** file to make it an SSRollingButtonScrollView delegate.
 
 	```objectivec
 	@interface ViewController () <SSRollingButtonScrollViewDelegate>
@@ -62,4 +62,10 @@ How To Use
 	}
 	```
 
-6. Do more.
+6. In the **viewDidLoad** method of your view controller, create an `NSArray` of `NSString` objects.  The strings will be the titles for the `UIButton`s. For example:
+
+	```objectivec
+	NSArray *myButtonTitles = [NSArray arrayWithObjects:@"0", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", nil];
+	```
+	
+7. more
