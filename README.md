@@ -14,52 +14,35 @@ How To Use
 3. Add the appropriate **#import** and **@class** statements to the view controller(s) that will be using an SSRollingButtonScrollView.
       
       ```objectivec
-      {
-        //
-        // ViewController.h
-        //
+      //
+      // ViewController.h
+      //
         
-        #import <UIKit/UIKit.h>
+      #import <UIKit/UIKit.h>
 
-        @class SSRollingButtonScrollView;
+      @class SSRollingButtonScrollView;
 
-        @interface ViewController : UIViewController
+      @interface ViewController : UIViewController
         
-        @end
-      }
-      ```
-      ```objectivec
-      {
-        //
-        // ViewController.m
-        //
-        
-        #import "ViewController.h"
-        #import "SSRollingButtonScrollView.h"
-
-        @interface ViewController ()
-
-        @end
-        
-        ...
-        ...
-      }
+      @end
       ```
       
-4. Make your view controller an **SSRollingButtonScrollView** delegate.
+      ```objectivec
+      //
+      // ViewController.m
+      //
+        
+      #import "ViewController.h"
+      #import "SSRollingButtonScrollView.h"
+
+      @interface ViewController ()
+
+      @end
+      ```
+      
+4. Add `<SSRollingButtonScrollViewDelegate>` to your view controller's **.m** file to make it an **SSRollingButtonScrollView** delegate.
 
       ```objectivec
-      {
-        //
-        // ViewController.m
-        //
-        
-        ...
-        ...
-        
-        @interface ViewController () <SSRollingButtonScrollViewDelegate>
-        
-        ...
-        ...
-      }
+      @interface ViewController () <SSRollingButtonScrollViewDelegate>
+      ```
 
