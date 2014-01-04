@@ -7,6 +7,7 @@
 //
 
 #import "SSRollingButtonScrollView.h"
+#import <AudioToolbox/AudioToolbox.h>
 
 @implementation SSRollingButtonScrollView
 {
@@ -57,6 +58,7 @@
         self.centerButtonTextColor = [UIColor orangeColor];
         self.stopOnCenter = YES;
         self.centerPushedButtons = YES;
+        self.playSound = YES;
         
         [self setShowsHorizontalScrollIndicator:NO];
         [self setShowsVerticalScrollIndicator:NO];
@@ -230,6 +232,10 @@
         centerButton.titleLabel.font = self.buttonCenterFont;
         centerButton.titleLabel.textColor = self.centerButtonTextColor;
         [centerButton setTitleColor:self.centerButtonTextColor forState:UIControlStateNormal];
+        
+        if (self.playSound) {
+            AudioServicesPlaySystemSound(1105);
+        }
     }
 }
 
