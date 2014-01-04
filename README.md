@@ -62,10 +62,18 @@ How To Use
 	}
 	```
 
-6. In the **viewDidLoad** method of your view controller, create an `NSArray` of `NSString` objects.  The strings will be the titles for the `UIButton`s. For example:
+6. Add an `SSRollingButtonScrollView` `@property` to your view controller's **.h** file. 
+
+	**NOTE:** Do not add a scrollView of SSRollingButtonScrollView class to interface builder before adding your SSRollingButtonScrollView property and do not use interface builder to create your SSRollingButtonScrollView property. I am not sure why, but the project will crash on launch if created as such.
+
+	```objectivec
+	@property (weak, nonatomic) IBOutlet SSRollingButtonScrollView *myRollingButtonScrollView;
+	```
+
+7. In the **viewDidLoad** method of your view controller, create an `NSArray` of `NSString` objects.  The strings will be the titles for the `UIButton`s. For example:
 
 	```objectivec
 	NSArray *myButtonTitles = [NSArray arrayWithObjects:@"0", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", nil];
 	```
 	
-7. more
+8. more
