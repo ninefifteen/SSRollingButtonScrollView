@@ -9,7 +9,7 @@
 //  infinite looping scroll of UIButtons.  Users of SSRollingButtonScrollView
 //  must, at minimum, provide an array of button titles and specify a layout style.
 //  Through the implementation of the optional delegate methods, the user is informed
-//  of any button being pushed (touchUpInside), any button being scrolled to the
+//  of any button being pushed (touchUpInside), any button being scrolled to thegit 
 //  center of the view, and most of the UIScrollViewDelegate methods (some are not
 //  available as they interfere with the working of the SSRollingButtonScrollView).
 //  The inifinite scrolling code is based on Apple's InfiniteScrollView class found
