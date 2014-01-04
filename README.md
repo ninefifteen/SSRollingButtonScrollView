@@ -12,39 +12,39 @@ How To Use
 2. Add the **AudioToolbox.framework** to your project.
 
 3. Add the appropriate **#import** and **@class** statements to the view controller(s) that will be using an SSRollingButtonScrollView.
-      
-      ```objectivec
-      //
-      // ViewController.h
-      //
-        
-      #import <UIKit/UIKit.h>
 
-      @class SSRollingButtonScrollView;
-
-      @interface ViewController : UIViewController
-        
-      @end
-      ```
-      
-      ```objectivec
-      //
-      // ViewController.m
-      //
-        
-      #import "ViewController.h"
-      #import "SSRollingButtonScrollView.h"
-
-      @interface ViewController ()
-
-      @end
-      ```
+	```objectivec
+	//
+	// ViewController.h
+	//
+	
+	#import <UIKit/UIKit.h>
+	
+	@class SSRollingButtonScrollView;
+	
+	@interface ViewController : UIViewController
+	
+	@end
+	```
+	
+	```objectivec
+	//
+	//  ViewController.m
+	//
+	
+	#import "ViewController.h"
+	#import "SSRollingButtonScrollView.h"
+	
+	@interface ViewController ()
+	
+	@end
+	```
       
 4. Add `<SSRollingButtonScrollViewDelegate>` to your view controller's **.m** file to make it an **SSRollingButtonScrollView** delegate.
 
-      ```objectivec
-      @interface ViewController () <SSRollingButtonScrollViewDelegate>
-      ```
+	```objectivec
+	@interface ViewController () <SSRollingButtonScrollViewDelegate>
+	```
 
 5. You will probably want to add the following delegate methods to your **.m** file so that the SSRollingButtonScrollView can trigger actions within your view controller.
 
@@ -61,3 +61,5 @@ How To Use
     	// Insert your code for action to take in the event an SSRollingButtonScrollView UIButton is scrolled to the center of the visible view.
 	}
 	```
+
+6. Do more.
