@@ -29,9 +29,14 @@
     //_bottomButtonTitles = [NSArray arrayWithObjects:@"One", @"Two", nil];
     
     self.bottomRollingButtonScrollView.layoutStyle = SShorizontalLayout;
-    //self.bottomRollingButtonScrollView.fixedButtonSpacing = 50.0f;
+    //self.bottomRollingButtonScrollView.fixedButtonWidth = 40.0f;
     [self.bottomRollingButtonScrollView setButtonTitles:_bottomButtonTitles];
     self.bottomRollingButtonScrollView.buttonCenterFont = [UIFont boldSystemFontOfSize:24];
+    self.bottomRollingButtonScrollView.notCenterButtonBackgroundColor = [UIColor lightGrayColor];
+    self.bottomRollingButtonScrollView.centerButtonBackgroundColor = [UIColor whiteColor];
+    self.bottomRollingButtonScrollView.spacingBetweenButtons = 2.0f;
+    self.bottomRollingButtonScrollView.centerButtonBackgroundImage = [UIImage imageNamed:@"Icon-58"];
+    
     [self.bottomRollingButtonScrollView createButtonArray];
     self.bottomRollingButtonScrollView.ssRollingButtonScrollViewDelegate = self;
 
@@ -40,8 +45,12 @@
     
     self.leftRollingButtonScrollView.layoutStyle = SSverticalLayout;
     [self.leftRollingButtonScrollView setButtonTitles:_leftButtonTitles];
-    self.leftRollingButtonScrollView.fixedButtonHeight = 30.0f;
+    self.leftRollingButtonScrollView.fixedButtonHeight = 28.0f;
     self.leftRollingButtonScrollView.buttonCenterFont = [UIFont boldSystemFontOfSize:20];
+    self.leftRollingButtonScrollView.notCenterButtonBackgroundColor = [UIColor blueColor];
+    self.leftRollingButtonScrollView.centerButtonBackgroundColor = [UIColor blackColor];
+    self.leftRollingButtonScrollView.spacingBetweenButtons = 2.0f;
+    
     [self.leftRollingButtonScrollView createButtonArray];
     self.leftRollingButtonScrollView.ssRollingButtonScrollViewDelegate = self;
 }

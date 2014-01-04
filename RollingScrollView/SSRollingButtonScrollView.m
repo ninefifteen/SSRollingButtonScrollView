@@ -47,6 +47,10 @@
         self.fixedButtonWidth = -1.0f;
         self.fixedButtonHeight = -1.0f;
         self.spacingBetweenButtons = 0.0f;
+        self.notCenterButtonBackgroundColor = [UIColor clearColor];
+        self.centerButtonBackgroundColor = [UIColor clearColor];
+        self.notCenterButtonBackgroundImage = nil;
+        self.centerButtonBackgroundImage = nil;
         self.buttonNotCenterFont = [UIFont systemFontOfSize:15];
         self.buttonCenterFont = [UIFont boldSystemFontOfSize:17];
         self.notCenterButtonTextColor = [UIColor grayColor];
@@ -79,6 +83,23 @@
     [self addSubview:_buttonContainerView];
 }
 
+- (UIButton *)createAndConfigureNewButton:(NSString *)buttonTitle
+{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
+    
+    [button setTitle:buttonTitle forState:UIControlStateNormal];
+    button.titleLabel.font = self.buttonNotCenterFont;
+    [button setTitleColor:self.notCenterButtonTextColor forState:UIControlStateNormal];
+    [button setTitleColor:self.centerButtonTextColor forState:UIControlStateHighlighted];
+    [button setBackgroundColor:self.notCenterButtonBackgroundColor];
+    
+    if (self.notCenterButtonBackgroundImage != nil) {
+        [button setBackgroundImage:self.notCenterButtonBackgroundImage forState:UIControlStateNormal];
+    }
+    
+    return button;
+}
+
 - (void)createButtonArray
 {
     [self setContentSizeAndButtonContainerViewFrame];
@@ -89,18 +110,14 @@
     CGFloat buttonHeight;
     _rollingScrollViewButtons = [NSMutableArray array];
     
+    
     if (self.layoutStyle == SShorizontalLayout) {
         
-        while (x <= self.frame.size.width) {
+        while (x <= self.frame.size.width * 2) {
             
             for (NSString *buttonTitle in _rollingScrollViewButtonTitles) {
                 
-                UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
-                
-                [button setTitle:buttonTitle forState:UIControlStateNormal];
-                button.titleLabel.font = self.buttonNotCenterFont;
-                [button setTitleColor:self.notCenterButtonTextColor forState:UIControlStateNormal];
-                [button setTitleColor:self.centerButtonTextColor forState:UIControlStateHighlighted];
+                UIButton *button = [self createAndConfigureNewButton:buttonTitle];
                 
                 CGSize fittedButtonSize = [button.titleLabel.text sizeWithAttributes:@{NSFontAttributeName:self.buttonCenterFont}];
                 
@@ -128,17 +145,11 @@
         
     } else {
         
-        while (y <= self.frame.size.height) {
+        while (y <= self.frame.size.height * 2) {
             
             for (NSString *buttonTitle in _rollingScrollViewButtonTitles) {
                 
-                
-                UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
-                
-                [button setTitle:buttonTitle forState:UIControlStateNormal];
-                button.titleLabel.font = self.buttonNotCenterFont;
-                [button setTitleColor:self.notCenterButtonTextColor forState:UIControlStateNormal];
-                [button setTitleColor:self.centerButtonTextColor forState:UIControlStateHighlighted];
+                UIButton *button = [self createAndConfigureNewButton:buttonTitle];
                 
                 CGSize fittedButtonSize = [button.titleLabel.text sizeWithAttributes:@{NSFontAttributeName:self.buttonCenterFont}];
                 
@@ -174,8 +185,18 @@
     [super layoutSubviews];
     
     [self recenterIfNecessary];
+    [self tileContentInVisibleBounds];
+    [self configureCenterButton:[self getCenterButton]];
+    
+    if (_viewsInitialLoad) {
+        [self moveButtonToViewCenter:_currentCenterButton animated:NO];
+        [self tileContentInVisibleBounds];
+        _viewsInitialLoad = NO;
+    }
+}
 
-    // tile content in visible bounds
+- (void)tileContentInVisibleBounds
+{
     CGRect visibleBounds = [self convertRect:[self bounds] toView:_buttonContainerView];
     
     if (self.layoutStyle == SShorizontalLayout) {
@@ -190,13 +211,6 @@
         CGFloat maximumVisibleY = CGRectGetMaxY(visibleBounds);
         [self tileButtonsFromMinY:minimumVisibleY toMaxY:maximumVisibleY];
     }
-    
-    [self configureCenterButton:[self getCenterButton]];
-    
-    if (_viewsInitialLoad) {
-        [self moveButtonToViewCenter:_currentCenterButton animated:NO];
-        _viewsInitialLoad = NO;
-    }
 }
 
 - (void)configureCenterButton:(UIButton *)centerButton
@@ -204,11 +218,15 @@
     if (centerButton != _currentCenterButton) {
         
         _currentCenterButton = centerButton;
-        
+
         for (UIButton *button in _visibleButtons) {
+            [button setBackgroundColor:self.notCenterButtonBackgroundColor];
+            [button setBackgroundImage:self.notCenterButtonBackgroundImage forState:UIControlStateNormal];
             button.titleLabel.font = self.buttonNotCenterFont;
             [button setTitleColor:self.notCenterButtonTextColor forState:UIControlStateNormal];
         }
+        [centerButton setBackgroundColor:self.centerButtonBackgroundColor];
+        [centerButton setBackgroundImage:self.centerButtonBackgroundImage forState:UIControlStateNormal];
         centerButton.titleLabel.font = self.buttonCenterFont;
         centerButton.titleLabel.textColor = self.centerButtonTextColor;
         [centerButton setTitleColor:self.centerButtonTextColor forState:UIControlStateNormal];
@@ -388,7 +406,7 @@
     // to kick off the tiling we need to make sure there's at least one label
     if ([_visibleButtons count] == 0)
     {
-        _rightMostVisibleButtonIndex = 0;
+        _rightMostVisibleButtonIndex = -1;
         _leftMostVisibleButtonIndex = 0;
         [self placeNewButtonOnRight:minimumVisibleX];
     }
@@ -484,7 +502,7 @@
     // to kick off the tiling we need to make sure there's at least one label
     if ([_visibleButtons count] == 0)
     {
-        _bottomMostVisibleButtonIndex = 0;
+        _bottomMostVisibleButtonIndex = -1;
         _topMostVisibleButtonIndex = 0;
         [self placeNewButtonOnBottom:minimumVisibleY];
     }

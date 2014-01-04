@@ -5,6 +5,13 @@
 //  Created by Shawn Seals on 12/27/13.
 //  Copyright (c) 2013 Shawn Seals. All rights reserved.
 //
+//  SSRollingButtonScrollView is a custom UIScrollView subclass that features an
+//  infinite looping scroll of UIButtons.  Users of SSRollingButtonScrollView
+//  must, at minimum, provide an array of button titles and specify a layout style.
+//  Through the implementation of the optional delegate methods, the user is informed
+//  of any button being pushed (touchUpInside), any button being scrolled to the
+//  center of the view, and most of the UIScrollViewDelegate methods (some are not
+//  available as they interfere with the working of the SSRollingButtonScrollView).
 
 #import <UIKit/UIKit.h>
 
@@ -17,7 +24,7 @@ typedef enum {
 
 @protocol SSRollingButtonScrollViewDelegate <NSObject>
 
-@optional
+@optional   // SSRollingButtonScrollViewDelegate specific methods.
 - (void)rollingScrollViewButtonPushed:(UIButton *)button ssRollingButtonScrollView:(SSRollingButtonScrollView *)rollingButtonScrollView;
 - (void)rollingScrollViewButtonIsInCenter:(UIButton *)button ssRollingButtonScrollView:(SSRollingButtonScrollView *)rollingButtonScrollView;
 
@@ -47,6 +54,10 @@ typedef enum {
 @property (nonatomic) CGFloat spacingBetweenButtons;
 @property (nonatomic, strong) UIColor *notCenterButtonTextColor;
 @property (nonatomic, strong) UIColor *centerButtonTextColor;
+@property (nonatomic, strong) UIColor *notCenterButtonBackgroundColor;
+@property (nonatomic, strong) UIColor *centerButtonBackgroundColor;
+@property (nonatomic, strong) UIImage *notCenterButtonBackgroundImage;
+@property (nonatomic, strong) UIImage *centerButtonBackgroundImage;
 @property (nonatomic) BOOL stopOnCenter;
 @property (nonatomic) BOOL centerPushedButtons;
 
