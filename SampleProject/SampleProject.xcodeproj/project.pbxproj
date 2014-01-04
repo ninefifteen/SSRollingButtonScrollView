@@ -22,6 +22,7 @@
 		45AAC96A1877ABA500B40F7C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 45AAC9681877ABA500B40F7C /* InfoPlist.strings */; };
 		45AAC96C1877ABA500B40F7C /* SampleProjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AAC96B1877ABA500B40F7C /* SampleProjectTests.m */; };
 		45AAC9771877AF5400B40F7C /* SSRollingButtonScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AAC9761877AF5400B40F7C /* SSRollingButtonScrollView.m */; };
+		45AAC9791877D71C00B40F7C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45AAC9781877D71C00B40F7C /* AudioToolbox.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,7 @@
 		45AAC96B1877ABA500B40F7C /* SampleProjectTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SampleProjectTests.m; sourceTree = "<group>"; };
 		45AAC9751877AF5400B40F7C /* SSRollingButtonScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSRollingButtonScrollView.h; sourceTree = "<group>"; };
 		45AAC9761877AF5400B40F7C /* SSRollingButtonScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSRollingButtonScrollView.m; sourceTree = "<group>"; };
+		45AAC9781877D71C00B40F7C /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45AAC9791877D71C00B40F7C /* AudioToolbox.framework in Frameworks */,
 				45AAC9431877ABA500B40F7C /* CoreGraphics.framework in Frameworks */,
 				45AAC9451877ABA500B40F7C /* UIKit.framework in Frameworks */,
 				45AAC9411877ABA500B40F7C /* Foundation.framework in Frameworks */,
@@ -104,6 +107,7 @@
 		45AAC93F1877ABA500B40F7C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				45AAC9781877D71C00B40F7C /* AudioToolbox.framework */,
 				45AAC9401877ABA500B40F7C /* Foundation.framework */,
 				45AAC9421877ABA500B40F7C /* CoreGraphics.framework */,
 				45AAC9441877ABA500B40F7C /* UIKit.framework */,

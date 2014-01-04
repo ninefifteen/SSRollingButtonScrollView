@@ -69,6 +69,7 @@ typedef enum {
 @property (nonatomic, strong) UIImage *centerButtonBackgroundImage;
 @property (nonatomic) BOOL stopOnCenter;
 @property (nonatomic) BOOL centerPushedButtons;
+@property (nonatomic) BOOL playSound;
 
 // The following method must be called before calling "createButtonArray".
 - (void)setButtonTitles:(NSArray *)titles;

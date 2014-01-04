@@ -51,12 +51,14 @@
     self.digitSelector03.notCenterButtonTextColor = [UIColor lightGrayColor];
     self.digitSelector03.notCenterButtonBackgroundColor = [UIColor darkGrayColor];
     self.digitSelector03.centerButtonBackgroundColor = [UIColor blackColor];
+    self.digitSelector03.stopOnCenter = NO;
     [self.digitSelector03 createButtonArray];
     
     [self.digitSelector04 setButtonTitles:digits];
     self.digitSelector04.layoutStyle = SShorizontalLayout;
     self.digitSelector04.fixedButtonWidth = 60.0f;
     self.digitSelector04.notCenterButtonTextColor = [UIColor lightGrayColor];
+    self.digitSelector04.playSound = NO;
     [self.digitSelector04 createButtonArray];
     
     [self.letterSelector01 setButtonTitles:alphabet];
