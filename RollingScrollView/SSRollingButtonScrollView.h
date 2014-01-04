@@ -12,6 +12,8 @@
 //  of any button being pushed (touchUpInside), any button being scrolled to the
 //  center of the view, and most of the UIScrollViewDelegate methods (some are not
 //  available as they interfere with the working of the SSRollingButtonScrollView).
+//  The inifinite scrolling code is based on Apple's InfiniteScrollView class found
+//  in the StreetScroller sample project.
 
 #import <UIKit/UIKit.h>
 
@@ -24,11 +26,14 @@ typedef enum {
 
 @protocol SSRollingButtonScrollViewDelegate <NSObject>
 
-@optional   // SSRollingButtonScrollViewDelegate specific methods.
+// SSRollingButtonScrollViewDelegate specific methods.
+@optional
 - (void)rollingScrollViewButtonPushed:(UIButton *)button ssRollingButtonScrollView:(SSRollingButtonScrollView *)rollingButtonScrollView;
 - (void)rollingScrollViewButtonIsInCenter:(UIButton *)button ssRollingButtonScrollView:(SSRollingButtonScrollView *)rollingButtonScrollView;
 
-@optional   // Useable UIScrollViewDelegate methods.  Do NOT set a UIScrollViewDelegate.  Use SSRollingButtonScrollViewDelegate.
+// Useable UIScrollViewDelegate methods.
+// Do NOT set a UIScrollViewDelegate! Use SSRollingButtonScrollViewDelegate!
+@optional
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView;
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView;
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset;
@@ -41,12 +46,16 @@ typedef enum {
 
 @interface SSRollingButtonScrollView : UIScrollView <UIScrollViewDelegate>
 
+// USE THIS DELEGATE ONLY!!! Do NOT set a UIScrollView delegate!!! The SSRollingButtonScrollViewDelegate
+// pass on the useable UIScrollViewDelegate methods.
 @property (nonatomic, weak) id <SSRollingButtonScrollViewDelegate> ssRollingButtonScrollViewDelegate;
 
 // Mandatory. Must be set before calling "createButtonArray".
 @property (nonatomic) SScontentLayoutStyle layoutStyle;
 
-// Optional. If set by user, must be set before calling "createButtonArray".
+// Optional. All the properties below have default settings and only need
+// to be set if the user desires to change the the default appearance and/or
+// functionality.  If set by user, must be set before calling "createButtonArray".
 @property (nonatomic, strong) UIFont *buttonNotCenterFont;
 @property (nonatomic, strong) UIFont *buttonCenterFont;
 @property (nonatomic) CGFloat fixedButtonWidth;
@@ -64,7 +73,8 @@ typedef enum {
 // The following method must be called before calling "createButtonArray".
 - (void)setButtonTitles:(NSArray *)titles;
 
-// Must be called last.
+// Must be called.  "setButtonTitles" must be called and "layoutStyle" property
+// and any other desired optional properties must be set prior to calling "createButtonArray".
 - (void)createButtonArray;
 
 
