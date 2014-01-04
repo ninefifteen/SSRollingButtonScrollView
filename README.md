@@ -7,6 +7,59 @@ SSRollingButtonScrollView is a custom UIScrollView subclass that features an inf
 How To Use
 ----------
 
-1. Add the SSRollingButtonScrollView.h and SSRollingScrollView.m files to your project.
+1. Add the **SSRollingButtonScrollView.h** and **SSRollingButtonScrollView.m** files to your project.
 
-2. Add AudioToolbox.framework to your project.
+2. Add the **AudioToolbox.framework** to your project.
+
+3. Add the appropriate **#import** and **@class** statements to the view controller(s) that will be using an SSRollingButtonScrollView.
+      
+      ```objectivec
+      {
+        //
+        // ViewController.h
+        //
+        
+        #import <UIKit/UIKit.h>
+
+        @class SSRollingButtonScrollView;
+
+        @interface ViewController : UIViewController
+        
+        @end
+      }
+      ```
+      ```objectivec
+      {
+        //
+        // ViewController.m
+        //
+        
+        #import "ViewController.h"
+        #import "SSRollingButtonScrollView.h"
+
+        @interface ViewController ()
+
+        @end
+        
+        ...
+        ...
+      }
+      ```
+      
+4. Make your view controller an **SSRollingButtonScrollView** delegate.
+
+      ```objectivec
+      {
+        //
+        // ViewController.m
+        //
+        
+        ...
+        ...
+        
+        @interface ViewController () <SSRollingButtonScrollViewDelegate>
+        
+        ...
+        ...
+      }
+
