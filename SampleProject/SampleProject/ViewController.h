@@ -12,4 +12,12 @@
 
 @interface ViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet SSRollingButtonScrollView *digitSelector01;
+@property (weak, nonatomic) IBOutlet SSRollingButtonScrollView *digitSelector02;
+@property (weak, nonatomic) IBOutlet SSRollingButtonScrollView *digitSelector03;
+@property (weak, nonatomic) IBOutlet SSRollingButtonScrollView *digitSelector04;
+@property (weak, nonatomic) IBOutlet SSRollingButtonScrollView *letterSelector01;
+@property (weak, nonatomic) IBOutlet SSRollingButtonScrollView *phoneticSelector01;
+@property (weak, nonatomic) IBOutlet SSRollingButtonScrollView *numberSelector01;
+
 @end

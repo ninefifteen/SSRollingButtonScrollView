@@ -51,8 +51,8 @@
         self.centerButtonBackgroundColor = [UIColor clearColor];
         self.notCenterButtonBackgroundImage = nil;
         self.centerButtonBackgroundImage = nil;
-        self.buttonNotCenterFont = [UIFont systemFontOfSize:15];
-        self.buttonCenterFont = [UIFont boldSystemFontOfSize:17];
+        self.buttonNotCenterFont = [UIFont systemFontOfSize:16];
+        self.buttonCenterFont = [UIFont boldSystemFontOfSize:20];
         self.notCenterButtonTextColor = [UIColor grayColor];
         self.centerButtonTextColor = [UIColor orangeColor];
         self.stopOnCenter = YES;
