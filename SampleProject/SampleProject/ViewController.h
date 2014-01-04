@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class SSRollingButtonScrollView;
+
 @interface ViewController : UIViewController
 
 @end

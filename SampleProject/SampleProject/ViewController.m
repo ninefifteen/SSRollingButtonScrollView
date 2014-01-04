@@ -7,8 +7,9 @@
 //
 
 #import "ViewController.h"
+#import "SSRollingButtonScrollView.h"
 
-@interface ViewController ()
+@interface ViewController () <SSRollingButtonScrollViewDelegate>
 
 @end
 
@@ -24,6 +25,18 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - SSRollingButtonScrollViewDelegate
+
+- (void)rollingScrollViewButtonPushed:(UIButton *)button ssRollingButtonScrollView:(SSRollingButtonScrollView *)rollingButtonScrollView
+{
+    NSLog(@"%@", button.titleLabel.text);
+}
+
+- (void)rollingScrollViewButtonIsInCenter:(UIButton *)button ssRollingButtonScrollView:(SSRollingButtonScrollView *)rollingButtonScrollView
+{
+    NSLog(@"%@", button.titleLabel.text);
 }
 
 @end

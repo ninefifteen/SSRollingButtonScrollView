@@ -21,6 +21,7 @@
 		45AAC9621877ABA500B40F7C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45AAC9441877ABA500B40F7C /* UIKit.framework */; };
 		45AAC96A1877ABA500B40F7C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 45AAC9681877ABA500B40F7C /* InfoPlist.strings */; };
 		45AAC96C1877ABA500B40F7C /* SampleProjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AAC96B1877ABA500B40F7C /* SampleProjectTests.m */; };
+		45AAC9771877AF5400B40F7C /* SSRollingButtonScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AAC9761877AF5400B40F7C /* SSRollingButtonScrollView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,8 @@
 		45AAC9671877ABA500B40F7C /* SampleProjectTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SampleProjectTests-Info.plist"; sourceTree = "<group>"; };
 		45AAC9691877ABA500B40F7C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		45AAC96B1877ABA500B40F7C /* SampleProjectTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SampleProjectTests.m; sourceTree = "<group>"; };
+		45AAC9751877AF5400B40F7C /* SSRollingButtonScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSRollingButtonScrollView.h; sourceTree = "<group>"; };
+		45AAC9761877AF5400B40F7C /* SSRollingButtonScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSRollingButtonScrollView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +120,8 @@
 				45AAC9521877ABA500B40F7C /* Main.storyboard */,
 				45AAC9551877ABA500B40F7C /* ViewController.h */,
 				45AAC9561877ABA500B40F7C /* ViewController.m */,
+				45AAC9751877AF5400B40F7C /* SSRollingButtonScrollView.h */,
+				45AAC9761877AF5400B40F7C /* SSRollingButtonScrollView.m */,
 				45AAC9581877ABA500B40F7C /* Images.xcassets */,
 				45AAC9471877ABA500B40F7C /* Supporting Files */,
 			);
@@ -250,6 +255,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				45AAC9571877ABA500B40F7C /* ViewController.m in Sources */,
+				45AAC9771877AF5400B40F7C /* SSRollingButtonScrollView.m in Sources */,
 				45AAC9511877ABA500B40F7C /* AppDelegate.m in Sources */,
 				45AAC94D1877ABA500B40F7C /* main.m in Sources */,
 			);
