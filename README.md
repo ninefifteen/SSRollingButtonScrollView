@@ -169,24 +169,58 @@ Default value: *0*
 
 ####notCenterButtonTextColor####
 
-The color of the *UIButton.titleLable* when the button is not centered in the visible portion of the scroll view.
+The color of the *UIButton.titleLabel* when the button is not centered in the visible portion of the scroll view.
 
 *property (nonatomic, strong) UIColor *notCenterButtonTextColor*
 
 Default value: *UIColor grayColor*
 
-@property (nonatomic, strong) UIColor *centerButtonTextColor;
+####centerButtonTextColor####
+
+The color of the *UIButton.titleLabel* when the button centered in the visible portion of the scroll view.
+
+*@property (nonatomic, strong) UIColor *centerButtonTextColor*
+
+Default value: *UIColor orangeColor*
+
+####notCenterButtonBackgroundColor####
 
 @property (nonatomic, strong) UIColor *notCenterButtonBackgroundColor;
 
+Default value: **
+
+####centerButtonBackgroundColor####
+
 @property (nonatomic, strong) UIColor *centerButtonBackgroundColor;
+
+Default value: **
+
+####centerButtonBackgroundColor####
 
 @property (nonatomic, strong) UIImage *notCenterButtonBackgroundImage;
 
+Default value: **
+
+####centerButtonBackgroundColor####
+
 @property (nonatomic, strong) UIImage *centerButtonBackgroundImage;
+
+Default value: **
+
+####centerButtonBackgroundColor####
 
 @property (nonatomic) BOOL stopOnCenter;
 
+Default value: **
+
+####centerButtonBackgroundColor####
+
 @property (nonatomic) BOOL centerPushedButtons;
 
+Default value: **
+
+####centerButtonBackgroundColor####
+
 @property (nonatomic) BOOL playSound;
+
+Default value: **
