@@ -195,31 +195,31 @@ Default value: **
 
 Default value: **
 
-####centerButtonBackgroundColor####
+####notCenterButtonBackgroundImage####
 
 @property (nonatomic, strong) UIImage *notCenterButtonBackgroundImage;
 
 Default value: **
 
-####centerButtonBackgroundColor####
+####centerButtonBackgroundImage####
 
 @property (nonatomic, strong) UIImage *centerButtonBackgroundImage;
 
 Default value: **
 
-####centerButtonBackgroundColor####
+####stopOnCenter####
 
 @property (nonatomic) BOOL stopOnCenter;
 
 Default value: **
 
-####centerButtonBackgroundColor####
+####centerPushedButtons####
 
 @property (nonatomic) BOOL centerPushedButtons;
 
 Default value: **
 
-####centerButtonBackgroundColor####
+####playSound####
 
 @property (nonatomic) BOOL playSound;
 
