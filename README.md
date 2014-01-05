@@ -129,20 +129,27 @@ Property Descriptions
 
 ####buttonNotCenterFont####
 
-The font of the UIButton titleLable when the button is not centered in the visible portion of the scroll view.
+The font of the *UIButton.titleLable* when the button is not centered in the visible portion of the scroll view.
 
 *@property (nonatomic, strong) UIFont *buttonNotCenterFont*
 
-Default value: UIFont systemFontOfSize:16
+Default value: *UIFont systemFontOfSize:16*
 
 ####buttonCenterFont####
 
-The font of the UIButton titleLable when the button is centered in the visible portion of the scroll view.
+The font of the *UIButton.titleLable* when the button is centered in the visible portion of the scroll view.
 
 *@property (nonatomic, strong) UIFont *buttonCenterFont*
-Default value: UIFont boldSystemFontOfSize:20
 
-@property (nonatomic) CGFloat fixedButtonWidth;
+Default value: *UIFont boldSystemFontOfSize:20*
+
+####fixedButtonWidth####
+
+Sets the width of the UIButtons in the SSRollingButtonScrollView.
+
+*@property (nonatomic) CGFloat fixedButtonWidth*
+
+Default value: SSRollingButtonScrollView sets each individual UIButtons width to the minimum needed to properly display the *UIButton.titleLable* with the font set to *buttonCenterFont*.
 
 @property (nonatomic) CGFloat fixedButtonHeight;
 
