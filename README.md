@@ -120,3 +120,5 @@ How To Use
 	- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 	- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
 	```
+
+	That is it. You should now be able to run your project and use the SSRollingButtonScrollView.
