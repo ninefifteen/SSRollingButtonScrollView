@@ -58,7 +58,7 @@ How To Use
 	NSArray *myButtonTitles = [NSArray arrayWithObjects:@"0", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", nil];
 	```
 	
-7. If you wish to change the default settings of the optional properties, do so at this time. If this step is done, it must be done prior to step 8. The optional properties are shown below. A detailed description of these properties is located at the end of this document.
+7. If you wish to change the default settings of the optional properties, do so at this time. If this step is done, it must be done prior to step 8. The optional properties are shown below. A detailed description of these properties is located in the **Property Descriptions** section of this document.
 
 	```objectivec
 	@property (nonatomic, strong) UIFont *buttonNotCenterFont;
