@@ -128,16 +128,29 @@ Property Descriptions
 ---------------------
 
 @property (nonatomic, strong) UIFont *buttonNotCenterFont;
-@property (nonatomic, strong) UIFont *buttonCenterFont;	
+
+@property (nonatomic, strong) UIFont *buttonCenterFont;
+
 @property (nonatomic) CGFloat fixedButtonWidth;
+
 @property (nonatomic) CGFloat fixedButtonHeight;
+
 @property (nonatomic) CGFloat spacingBetweenButtons;
+
 @property (nonatomic, strong) UIColor *notCenterButtonTextColor;
+
 @property (nonatomic, strong) UIColor *centerButtonTextColor;
+
 @property (nonatomic, strong) UIColor *notCenterButtonBackgroundColor;
+
 @property (nonatomic, strong) UIColor *centerButtonBackgroundColor;
+
 @property (nonatomic, strong) UIImage *notCenterButtonBackgroundImage;
+
 @property (nonatomic, strong) UIImage *centerButtonBackgroundImage;
+
 @property (nonatomic) BOOL stopOnCenter;
+
 @property (nonatomic) BOOL centerPushedButtons;
+
 @property (nonatomic) BOOL playSound;
