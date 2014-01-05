@@ -62,9 +62,7 @@ How To Use
 	}
 	```
 
-6. Add an `SSRollingButtonScrollView` `@property` to your view controller's **.h** file. 
-
-	**NOTE:** Do not add a scrollView of SSRollingButtonScrollView class to interface builder before adding your SSRollingButtonScrollView property and do not use interface builder to create your SSRollingButtonScrollView property. I am not sure why, but the project will crash on launch if created as such.
+6. In interface builder, add a UIScrollView to the view in which you want to add SSRollingButtonScrollView functionality. Set the UIScrollView's **Custom Class** to **SSRollingButtonScrollView**.  Add an `SSRollingButtonScrollView` `@property` to your view controller's **.h** file.  Connect the SSRollingButtonScrollView in interface builder to the property as a referencing outlet. 
 
 	```objectivec
 	@property (weak, nonatomic) IBOutlet SSRollingButtonScrollView *myRollingButtonScrollView;
