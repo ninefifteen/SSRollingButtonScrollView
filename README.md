@@ -93,7 +93,7 @@ How To Use
 	@property (nonatomic) BOOL playSound;
 	```
 
-9. Add a call to `createButtonArrayWithButtonTitles:(NSArray *)titles andLayoutStyle:(SScontentLayoutStyle)layoutStyle` to your view controller's **.m** file.
+9. Add a call to `createButtonArrayWithButtonTitles: andLayoutStyle:` to your view controller's **.m** file. This function requires two parameters. The first is the array of button titles that you created in step 7. The second is the layout style you wish to use.  The layout style is an enumerated type with only two options.  SShorizontalLayout for buttons that scroll horizontally and SSverticalLayout for buttons that scroll vertically.
 
 	```objectivec
 	[self.myRollingButtonScrollView createButtonArrayWithButtonTitles:myButtonTitles andLayoutStyle:SShorizontalLayout];
