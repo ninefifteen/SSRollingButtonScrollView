@@ -127,7 +127,13 @@ How To Use
 Property Descriptions
 ---------------------
 
-@property (nonatomic, strong) UIFont *buttonNotCenterFont;
+**buttonNotCenterFont**
+
+The font of the UIButton titleLable when the button is not centered in the visible portion of the scroll view.
+
+*@property (nonatomic, strong) UIFont *buttonNotCenterFont*
+
+Default value: UIFont systemFontOfSize:16
 
 @property (nonatomic, strong) UIFont *buttonCenterFont;
 
