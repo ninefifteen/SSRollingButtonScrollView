@@ -98,3 +98,9 @@ How To Use
 	```objectivec
 	[self.myRollingButtonScrollView createButtonArrayWithButtonTitles:myButtonTitles andLayoutStyle:SShorizontalLayout];
 	```
+
+10. Finally, if you would like your view controller to respond to the user's interaction with the SSRollingButtonScrollView, you must set your view controller as the delegate for the SSRollingButtonScrollView.
+
+	```objectivec
+	self.myRollingButtonScrollView.ssRollingButtonScrollViewDelegate = self;
+	```
