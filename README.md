@@ -109,7 +109,7 @@ How To Use
 	}
 	```
 
-	You may also implement the following UIScrollViewDelegate methods which are available through the `<SSRollingButtonScrollViewDelegate>`.
+	You may also implement the following UIScrollViewDelegate methods which are available through the `<SSRollingButtonScrollViewDelegate>`. For information regarding the following methods, see the Apple Developer documentation.
 	
 	```objectivec
 	- (void)scrollViewDidScroll:(UIScrollView *)scrollView
