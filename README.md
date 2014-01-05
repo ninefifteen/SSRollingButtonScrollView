@@ -101,7 +101,7 @@ How To Use
 
 10. If you would like your view controller to respond to the user's interaction with the SSRollingButtonScrollView, you must set your view controller as the delegate for the SSRollingButtonScrollView. 
 
-NOTE: USE THE **SSRollingButtonScrollView** DELEGATE ONLY!!! Do NOT set your view controller as a UIScrollView delegate!!! The SSRollingButtonScrollViewDelegate will pass on the useable UIScrollViewDelegate methods to your view controller. Setting your view controller as UIScrollView delegate will result in a loss of some of the SSRollingButtonScrollView's functionality.
+	NOTE: USE THE **SSRollingButtonScrollView** DELEGATE ONLY!!! Do NOT set your view controller as a UIScrollView delegate!!! The SSRollingButtonScrollViewDelegate will pass on the useable UIScrollViewDelegate methods to your view controller. Setting your view controller as UIScrollView delegate will result in a loss of some of the SSRollingButtonScrollView's functionality.
 
 	```objectivec
 	self.myRollingButtonScrollView.ssRollingButtonScrollViewDelegate = self;
