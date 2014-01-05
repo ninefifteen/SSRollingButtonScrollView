@@ -209,17 +209,23 @@ Default value: *nil*
 
 ####stopOnCenter####
 
+A Boolean value that determines
+
 *@property (nonatomic) BOOL stopOnCenter*
 
 Default value: *YES*
 
 ####centerPushedButtons####
 
+A Boolean value that determines whether buttons that experience a *touchUpInside* event scroll to the center of the visible view.
+
 *@property (nonatomic) BOOL centerPushedButtons*
 
 Default value: *YES*
 
 ####playSound####
+
+A Boolean value that determines whether a clicking sound is played during scrolling.
 
 *@property (nonatomic) BOOL playSound*
 
