@@ -209,7 +209,7 @@ Default value: *nil*
 
 ####stopOnCenter####
 
-A Boolean value that determines
+A Boolean value that determines whether, upon the completion of a scrolling event, the button nearest the center of the visible view is centered.
 
 *@property (nonatomic) BOOL stopOnCenter*
 
