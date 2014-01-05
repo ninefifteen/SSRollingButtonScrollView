@@ -74,7 +74,7 @@ How To Use
 	NSArray *myButtonTitles = [NSArray arrayWithObjects:@"0", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", nil];
 	```
 	
-8. If you wish to change the default settings of the optional properties, do so at this time.  The optional properties are:
+8. If you wish to change the default settings of the optional properties, do so at this time. If this step is done, it must be done prior to step 9. The optional properties are shown below. A detailed description of these properties is located at the end of this document.
 
 	```objectivec
 	@property (nonatomic, strong) UIFont *buttonNotCenterFont;
@@ -92,3 +92,5 @@ How To Use
 	@property (nonatomic) BOOL centerPushedButtons;
 	@property (nonatomic) BOOL playSound;
 	```
+
+9. Add a call to `createButtonArrayWithButtonTitles: andLayoutStyle:` to your view controller's **.m** file.
