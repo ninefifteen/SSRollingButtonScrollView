@@ -185,11 +185,15 @@ Default value: *UIColor orangeColor*
 
 ####notCenterButtonBackgroundColor####
 
+The background color displayed on the *UIButton* when the button is not centered in the visible portion of the scroll view.
+
 *@property (nonatomic, strong) UIColor *notCenterButtonBackgroundColor*
 
 Default value: *UIColor clearColor*
 
 ####centerButtonBackgroundColor####
+
+The background color displayed on the *UIButton* when the button is centered in the visible portion of the scroll view.
 
 *@property (nonatomic, strong) UIColor *centerButtonBackgroundColor*
 
@@ -197,11 +201,15 @@ Default value: *UIColor clearColor*
 
 ####notCenterButtonBackgroundImage####
 
+The background *UIImage* displayed on the *UIButton* when the button is not centered in the visible portion of the scroll view.
+
 *@property (nonatomic, strong) UIImage *notCenterButtonBackgroundImage*
 
 Default value: *nil*
 
 ####centerButtonBackgroundImage####
+
+The background *UIImage* displayed on the *UIButton* when the button is centered in the visible portion of the scroll view.
 
 *@property (nonatomic, strong) UIImage *centerButtonBackgroundImage*
 
