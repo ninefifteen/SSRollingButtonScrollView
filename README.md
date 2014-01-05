@@ -145,13 +145,19 @@ Default value: *UIFont boldSystemFontOfSize:20*
 
 ####fixedButtonWidth####
 
-Sets the width of the UIButtons in the SSRollingButtonScrollView.
+Sets the width of the UIButtons in the SSRollingButtonScrollView. All buttons in the SSRollingButtonScrollView will have the same width.
 
 *@property (nonatomic) CGFloat fixedButtonWidth*
 
-Default value: SSRollingButtonScrollView sets each individual UIButtons width to the minimum needed to properly display the *UIButton.titleLable* with the font set to *buttonCenterFont*.
+Default value: SSRollingButtonScrollView sets each individual UIButtons width to the minimum needed to properly display the *UIButton.titleLable* with the font set to *buttonCenterFont*.  Depending on the titles, not all the buttons in the SSRollingButtonScrollView will have the same width.
 
-@property (nonatomic) CGFloat fixedButtonHeight;
+####fixedButtonHeight####
+
+Sets the height of the UIButtons in the SSRollingButtonScrollView.  All buttons in the SSRollingButtonScrollView will have the same height.
+
+*@property (nonatomic) CGFloat fixedButtonHeight*
+
+Default value: SSRollingButtonScrollView sets each individual UIButtons height to the minimum needed to properly display the *UIButton.titleLable* with the font set to *buttonCenterFont*.
 
 @property (nonatomic) CGFloat spacingBetweenButtons;
 
