@@ -98,11 +98,13 @@ How To Use
 
 	- (void)rollingScrollViewButtonPushed:(UIButton *)button ssRollingButtonScrollView:(SSRollingButtonScrollView *)rollingButtonScrollView
 	{
-    	// Insert your code for action to take in the event an SSRollingButtonScrollView UIButton is pushed.
+    	// Insert your code for action to take when an SSRollingButtonScrollView UIButton experiences
+	// a touchUpInside event.
 	}
 
 	- (void)rollingScrollViewButtonIsInCenter:(UIButton *)button ssRollingButtonScrollView:(SSRollingButtonScrollView *)rollingButtonScrollView
 	{
-    	// Insert your code for action to take in the event an SSRollingButtonScrollView UIButton is scrolled to the center of the visible view.
+    	// Insert your code for action to take in the event an SSRollingButtonScrollView UIButton is 
+	// scrolled to the center of the visible view.
 	}
 	```
