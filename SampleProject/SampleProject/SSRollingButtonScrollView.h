@@ -50,9 +50,6 @@ typedef enum {
 // pass on the useable UIScrollViewDelegate methods.
 @property (nonatomic, weak) id <SSRollingButtonScrollViewDelegate> ssRollingButtonScrollViewDelegate;
 
-// Mandatory. Must be set before calling "createButtonArray".
-@property (nonatomic) SScontentLayoutStyle layoutStyle;
-
 // Optional. All the properties below have default settings and only need
 // to be set if the user desires to change the the default appearance and/or
 // functionality.  If set by user, must be set before calling "createButtonArray".
@@ -71,12 +68,9 @@ typedef enum {
 @property (nonatomic) BOOL centerPushedButtons;
 @property (nonatomic) BOOL playSound;
 
-// The following method must be called before calling "createButtonArray".
-- (void)setButtonTitles:(NSArray *)titles;
-
-// Must be called.  "setButtonTitles" must be called and "layoutStyle" property
-// and any other desired optional properties must be set prior to calling "createButtonArray".
-- (void)createButtonArray;
+// Must be called.  If optional properties are to be changed from their default settings, they must
+// be set prior to calling "createButtonArray".
+- (void)createButtonArrayWithButtonTitles:(NSArray *)titles andLayoutStyle:(SScontentLayoutStyle)layoutStyle;
 
 
 

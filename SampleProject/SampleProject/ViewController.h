@@ -19,5 +19,6 @@
 @property (weak, nonatomic) IBOutlet SSRollingButtonScrollView *letterSelector01;
 @property (weak, nonatomic) IBOutlet SSRollingButtonScrollView *phoneticSelector01;
 @property (weak, nonatomic) IBOutlet SSRollingButtonScrollView *numberSelector01;
+@property (weak, nonatomic) IBOutlet SSRollingButtonScrollView *repeatingDigitSet;
 
 @end

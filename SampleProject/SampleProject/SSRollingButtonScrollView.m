@@ -14,6 +14,8 @@
     BOOL _viewsInitialLoad;
     
     NSMutableArray *_rollingScrollViewButtonTitles;
+    SScontentLayoutStyle _layoutStyle;
+    
     NSMutableArray *_rollingScrollViewButtons;
     NSMutableArray *_visibleButtons;
     UIView *_buttonContainerView;
@@ -68,14 +70,9 @@
     return self;
 }
 
-- (void)setButtonTitles:(NSArray *)titles
-{
-    _rollingScrollViewButtonTitles = [NSMutableArray arrayWithArray:titles];
-}
-
 - (void)setContentSizeAndButtonContainerViewFrame
 {
-    if (self.layoutStyle == SShorizontalLayout) {
+    if (_layoutStyle == SShorizontalLayout) {
         self.contentSize = CGSizeMake(5000, self.frame.size.height);
     } else {
         self.contentSize = CGSizeMake(self.frame.size.width, 5000);
@@ -102,8 +99,11 @@
     return button;
 }
 
-- (void)createButtonArray
+- (void)createButtonArrayWithButtonTitles:(NSArray *)titles andLayoutStyle:(SScontentLayoutStyle)layoutStyle
 {
+    _rollingScrollViewButtonTitles = [NSMutableArray arrayWithArray:titles];
+    _layoutStyle = layoutStyle;
+    
     [self setContentSizeAndButtonContainerViewFrame];
     
     CGFloat x = 0.0f;
@@ -113,7 +113,7 @@
     _rollingScrollViewButtons = [NSMutableArray array];
     
     
-    if (self.layoutStyle == SShorizontalLayout) {
+    if (_layoutStyle == SShorizontalLayout) {
         
         while (x <= self.frame.size.width * 2) {
             
@@ -186,14 +186,16 @@
 {
     [super layoutSubviews];
     
-    [self recenterIfNecessary];
-    [self tileContentInVisibleBounds];
-    [self configureCenterButton:[self getCenterButton]];
-    
-    if (_viewsInitialLoad) {
-        [self moveButtonToViewCenter:_currentCenterButton animated:NO];
+    if ([_rollingScrollViewButtonTitles count] > 0) {
+        [self recenterIfNecessary];
         [self tileContentInVisibleBounds];
-        _viewsInitialLoad = NO;
+        [self configureCenterButton:[self getCenterButton]];
+        
+        if (_viewsInitialLoad) {
+            [self moveButtonToViewCenter:_currentCenterButton animated:NO];
+            [self tileContentInVisibleBounds];
+            _viewsInitialLoad = NO;
+        }
     }
 }
 
@@ -201,7 +203,7 @@
 {
     CGRect visibleBounds = [self convertRect:[self bounds] toView:_buttonContainerView];
     
-    if (self.layoutStyle == SShorizontalLayout) {
+    if (_layoutStyle == SShorizontalLayout) {
         
         CGFloat minimumVisibleX = CGRectGetMinX(visibleBounds);
         CGFloat maximumVisibleX = CGRectGetMaxX(visibleBounds);
@@ -299,7 +301,7 @@
 
 - (void)recenterIfNecessary
 {
-    if (self.layoutStyle == SShorizontalLayout) {
+    if (_layoutStyle == SShorizontalLayout) {
         
         CGPoint currentOffset = [self contentOffset];
         CGFloat contentWidth = [self contentSize].width;

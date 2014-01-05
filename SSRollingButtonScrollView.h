@@ -9,7 +9,7 @@
 //  infinite looping scroll of UIButtons.  Users of SSRollingButtonScrollView
 //  must, at minimum, provide an array of button titles and specify a layout style.
 //  Through the implementation of the optional delegate methods, the user is informed
-//  of any button being pushed (touchUpInside), any button being scrolled to the
+//  of any button being pushed (touchUpInside), any button being scrolled to thegit 
 //  center of the view, and most of the UIScrollViewDelegate methods (some are not
 //  available as they interfere with the working of the SSRollingButtonScrollView).
 //  The inifinite scrolling code is based on Apple's InfiniteScrollView class found
@@ -50,9 +50,6 @@ typedef enum {
 // pass on the useable UIScrollViewDelegate methods.
 @property (nonatomic, weak) id <SSRollingButtonScrollViewDelegate> ssRollingButtonScrollViewDelegate;
 
-// Mandatory. Must be set before calling "createButtonArray".
-@property (nonatomic) SScontentLayoutStyle layoutStyle;
-
 // Optional. All the properties below have default settings and only need
 // to be set if the user desires to change the the default appearance and/or
 // functionality.  If set by user, must be set before calling "createButtonArray".
@@ -71,12 +68,9 @@ typedef enum {
 @property (nonatomic) BOOL centerPushedButtons;
 @property (nonatomic) BOOL playSound;
 
-// The following method must be called before calling "createButtonArray".
-- (void)setButtonTitles:(NSArray *)titles;
-
-// Must be called.  "setButtonTitles" must be called and "layoutStyle" property
-// and any other desired optional properties must be set prior to calling "createButtonArray".
-- (void)createButtonArray;
+// Must be called.  If optional properties are to be changed from their default settings, they must
+// be set prior to calling "createButtonArray".
+- (void)createButtonArrayWithButtonTitles:(NSArray *)titles andLayoutStyle:(SScontentLayoutStyle)layoutStyle;
 
 
 

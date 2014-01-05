@@ -115,6 +115,17 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mbu-Uc-AL6">
+                                <rect key="frame" x="15" y="169" width="57" height="284"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eN7-3c-2E7" customClass="SSRollingButtonScrollView">
+                                        <rect key="frame" x="0.0" y="0.0" width="57" height="284"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    </scrollView>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -126,6 +137,7 @@
                         <outlet property="letterSelector01" destination="Qcb-wy-d2H" id="Jda-ds-F8u"/>
                         <outlet property="numberSelector01" destination="zDo-pB-tuU" id="bjP-gq-9G6"/>
                         <outlet property="phoneticSelector01" destination="2KK-oD-CyJ" id="kLf-YM-Vaf"/>
+                        <outlet property="repeatingDigitSet" destination="eN7-3c-2E7" id="QPg-Wn-Mtb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
