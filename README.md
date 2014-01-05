@@ -93,4 +93,8 @@ How To Use
 	@property (nonatomic) BOOL playSound;
 	```
 
-9. Add a call to `createButtonArrayWithButtonTitles: andLayoutStyle:` to your view controller's **.m** file.
+9. Add a call to `createButtonArrayWithButtonTitles:(NSArray *)titles andLayoutStyle:(SScontentLayoutStyle)layoutStyle` to your view controller's **.m** file.
+
+	```objectivec
+	[self.myRollingButtonScrollView createButtonArrayWithButtonTitles:myButtonTitles andLayoutStyle:SShorizontalLayout];
+	```
