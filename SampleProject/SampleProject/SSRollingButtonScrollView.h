@@ -47,12 +47,12 @@ typedef enum {
 @interface SSRollingButtonScrollView : UIScrollView <UIScrollViewDelegate>
 
 // USE THIS DELEGATE ONLY!!! Do NOT set a UIScrollView delegate!!! The SSRollingButtonScrollViewDelegate
-// pass on the useable UIScrollViewDelegate methods.
+// will pass on the useable UIScrollViewDelegate methods.
 @property (nonatomic, weak) id <SSRollingButtonScrollViewDelegate> ssRollingButtonScrollViewDelegate;
 
 // Optional. All the properties below have default settings and only need
 // to be set if the user desires to change the the default appearance and/or
-// functionality.  If set by user, must be set before calling "createButtonArray".
+// functionality.  If set by user, must be set before calling "createButtonArrayWithTitles:".
 @property (nonatomic, strong) UIFont *buttonNotCenterFont;
 @property (nonatomic, strong) UIFont *buttonCenterFont;
 @property (nonatomic) CGFloat fixedButtonWidth;
@@ -69,7 +69,7 @@ typedef enum {
 @property (nonatomic) BOOL playSound;
 
 // Must be called.  If optional properties are to be changed from their default settings, they must
-// be set prior to calling "createButtonArray".
+// be set prior to calling "createButtonArrayWithTitles:".
 - (void)createButtonArrayWithButtonTitles:(NSArray *)titles andLayoutStyle:(SScontentLayoutStyle)layoutStyle;
 
 
