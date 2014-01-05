@@ -68,10 +68,27 @@ How To Use
 	@property (weak, nonatomic) IBOutlet SSRollingButtonScrollView *myRollingButtonScrollView;
 	```
 
-7. In the **viewDidLoad** method of your view controller, create an `NSArray` of `NSString` objects.  The strings will be the titles for the `UIButton`s. For example:
+7. In the **viewDidLoad** method of your view controller, create an `NSArray` of `NSString` objects.  The strings will be the titles for the buttons. For example:
 
 	```objectivec
 	NSArray *myButtonTitles = [NSArray arrayWithObjects:@"0", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", nil];
 	```
 	
-8. more
+8. If you wish to change the default settings of the optional properties, do so at this time.  The optional properties are:
+
+	```objectivec
+	@property (nonatomic, strong) UIFont *buttonNotCenterFont;
+	@property (nonatomic, strong) UIFont *buttonCenterFont;
+	@property (nonatomic) CGFloat fixedButtonWidth;
+	@property (nonatomic) CGFloat fixedButtonHeight;
+	@property (nonatomic) CGFloat spacingBetweenButtons;
+	@property (nonatomic, strong) UIColor *notCenterButtonTextColor;
+	@property (nonatomic, strong) UIColor *centerButtonTextColor;
+	@property (nonatomic, strong) UIColor *notCenterButtonBackgroundColor;
+	@property (nonatomic, strong) UIColor *centerButtonBackgroundColor;
+	@property (nonatomic, strong) UIImage *notCenterButtonBackgroundImage;
+	@property (nonatomic, strong) UIImage *centerButtonBackgroundImage;
+	@property (nonatomic) BOOL stopOnCenter;
+	@property (nonatomic) BOOL centerPushedButtons;
+	@property (nonatomic) BOOL playSound;
+	```
