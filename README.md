@@ -46,35 +46,19 @@ How To Use
 	@interface ViewController () <SSRollingButtonScrollViewDelegate>
 	```
 
-5. You will probably want to add the following delegate methods to your **.m** file so that the SSRollingButtonScrollView can trigger actions within your view controller.
-
-	```objectivec
-	#pragma mark - SSRollingButtonScrollViewDelegate
-
-	- (void)rollingScrollViewButtonPushed:(UIButton *)button ssRollingButtonScrollView:(SSRollingButtonScrollView *)rollingButtonScrollView
-	{
-    	// Insert your code for action to take in the event an SSRollingButtonScrollView UIButton is pushed.
-	}
-
-	- (void)rollingScrollViewButtonIsInCenter:(UIButton *)button ssRollingButtonScrollView:(SSRollingButtonScrollView *)rollingButtonScrollView
-	{
-    	// Insert your code for action to take in the event an SSRollingButtonScrollView UIButton is scrolled to the center of the visible view.
-	}
-	```
-
-6. In interface builder, add a UIScrollView to the view in which you want to add SSRollingButtonScrollView functionality. Set the UIScrollView's **Custom Class** to **SSRollingButtonScrollView**.  Add an `SSRollingButtonScrollView` `@property` to your view controller's **.h** file.  Connect the SSRollingButtonScrollView in interface builder to the property as a referencing outlet. 
+5. In interface builder, add a UIScrollView to the view in which you want to add SSRollingButtonScrollView functionality. Set the UIScrollView's **Custom Class** to **SSRollingButtonScrollView**.  Add an `SSRollingButtonScrollView` `@property` to your view controller's **.h** file.  Connect the SSRollingButtonScrollView in interface builder to the property as a referencing outlet. 
 
 	```objectivec
 	@property (weak, nonatomic) IBOutlet SSRollingButtonScrollView *myRollingButtonScrollView;
 	```
 
-7. In the **viewDidLoad** method of your view controller, create an `NSArray` of `NSString` objects.  The strings will be the titles for the buttons. For example:
+6. In the **viewDidLoad** method of your view controller, create an `NSArray` of `NSString` objects.  The strings will be the titles for the buttons. For example:
 
 	```objectivec
 	NSArray *myButtonTitles = [NSArray arrayWithObjects:@"0", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", nil];
 	```
 	
-8. If you wish to change the default settings of the optional properties, do so at this time. If this step is done, it must be done prior to step 9. The optional properties are shown below. A detailed description of these properties is located at the end of this document.
+7. If you wish to change the default settings of the optional properties, do so at this time. If this step is done, it must be done prior to step 8. The optional properties are shown below. A detailed description of these properties is located at the end of this document.
 
 	```objectivec
 	@property (nonatomic, strong) UIFont *buttonNotCenterFont;
@@ -93,7 +77,7 @@ How To Use
 	@property (nonatomic) BOOL playSound;
 	```
 
-9. Add a call to `createButtonArrayWithButtonTitles: andLayoutStyle:` to your view controller's **.m** file. This function requires two parameters. The first is the array of button titles that you created in step 7. The second is the layout style you wish to use.  The layout style is an enumerated type with only two options.  SShorizontalLayout for buttons that scroll horizontally and SSverticalLayout for buttons that scroll vertically.
+8. Add a call to `createButtonArrayWithButtonTitles: andLayoutStyle:` to your view controller's **.m** file. This function requires two parameters. The first is the array of button titles that you created in step 6. The second is the layout style you wish to use.  The layout style is an enumerated type with only two options.  SShorizontalLayout for buttons that scroll horizontally and SSverticalLayout for buttons that scroll vertically.
 
 	```objectivec
 	[self.myRollingButtonScrollView createButtonArrayWithButtonTitles:myButtonTitles andLayoutStyle:SShorizontalLayout];
@@ -105,4 +89,20 @@ How To Use
 
 	```objectivec
 	self.myRollingButtonScrollView.ssRollingButtonScrollViewDelegate = self;
+	```
+
+10. You will probably want to add the following delegate methods to your **.m** file so that the SSRollingButtonScrollView can trigger actions within your view controller.
+
+	```objectivec
+	#pragma mark - SSRollingButtonScrollViewDelegate
+
+	- (void)rollingScrollViewButtonPushed:(UIButton *)button ssRollingButtonScrollView:(SSRollingButtonScrollView *)rollingButtonScrollView
+	{
+    	// Insert your code for action to take in the event an SSRollingButtonScrollView UIButton is pushed.
+	}
+
+	- (void)rollingScrollViewButtonIsInCenter:(UIButton *)button ssRollingButtonScrollView:(SSRollingButtonScrollView *)rollingButtonScrollView
+	{
+    	// Insert your code for action to take in the event an SSRollingButtonScrollView UIButton is scrolled to the center of the visible view.
+	}
 	```
