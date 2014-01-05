@@ -108,3 +108,7 @@ How To Use
 		// scrolled to the center of the visible view.
 	}
 	```
+
+	You may also implement the following UIScrollViewDelegate methods which are available through the `<SSRollingButtonScrollViewDelegate>`.
+	
+	```objectivec
