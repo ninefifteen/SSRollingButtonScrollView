@@ -91,7 +91,7 @@ How To Use
 	self.myRollingButtonScrollView.ssRollingButtonScrollViewDelegate = self;
 	```
 
-10. You will probably want to add the following delegate methods to your **.m** file so that the SSRollingButtonScrollView can trigger actions within your view controller.
+10. Finally, if you are using your view controller as an SSRollingButtonScrollView delegate, you want to add the following delegate methods to your **.m** file so that the SSRollingButtonScrollView can trigger actions within your view controller.
 
 	```objectivec
 	#pragma mark - SSRollingButtonScrollViewDelegate
