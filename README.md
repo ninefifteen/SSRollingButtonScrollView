@@ -187,40 +187,40 @@ Default value: *UIColor orangeColor*
 
 *@property (nonatomic, strong) UIColor *notCenterButtonBackgroundColor*
 
-Default value: **
+Default value: *UIColor clearColor*
 
 ####centerButtonBackgroundColor####
 
 *@property (nonatomic, strong) UIColor *centerButtonBackgroundColor*
 
-Default value: **
+Default value: *UIColor clearColor*
 
 ####notCenterButtonBackgroundImage####
 
 *@property (nonatomic, strong) UIImage *notCenterButtonBackgroundImage*
 
-Default value: **
+Default value: *nil*
 
 ####centerButtonBackgroundImage####
 
 *@property (nonatomic, strong) UIImage *centerButtonBackgroundImage*
 
-Default value: **
+Default value: *nil*
 
 ####stopOnCenter####
 
 *@property (nonatomic) BOOL stopOnCenter*
 
-Default value: **
+Default value: *YES*
 
 ####centerPushedButtons####
 
 *@property (nonatomic) BOOL centerPushedButtons*
 
-Default value: **
+Default value: *YES*
 
 ####playSound####
 
 *@property (nonatomic) BOOL playSound*
 
-Default value: **
+Default value: *YES*
