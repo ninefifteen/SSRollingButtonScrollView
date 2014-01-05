@@ -159,9 +159,21 @@ Sets the height of the UIButtons in the SSRollingButtonScrollView.  All buttons 
 
 Default value: SSRollingButtonScrollView sets each individual UIButtons height to the minimum needed to properly display the *UIButton.titleLable* with the font set to *buttonCenterFont*.
 
-@property (nonatomic) CGFloat spacingBetweenButtons;
+####spacingBetweenButtons####
 
-@property (nonatomic, strong) UIColor *notCenterButtonTextColor;
+Sets the spacing or points between neighboring buttons in the SSRollingButtonScrollView.
+
+*@property (nonatomic) CGFloat spacingBetweenButtons*
+
+Default value: *0*
+
+####notCenterButtonTextColor####
+
+The color of the *UIButton.titleLable* when the button is not centered in the visible portion of the scroll view.
+
+*property (nonatomic, strong) UIColor *notCenterButtonTextColor*
+
+Default value: *UIColor grayColor*
 
 @property (nonatomic, strong) UIColor *centerButtonTextColor;
 
