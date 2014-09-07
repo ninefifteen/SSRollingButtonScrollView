@@ -12,6 +12,7 @@
 @implementation SSRollingButtonScrollView
 {
     BOOL _viewsInitialLoad;
+    BOOL _lockCenterButton;
     
     NSMutableArray *_rollingScrollViewButtonTitles;
     SScontentLayoutStyle _layoutStyle;
@@ -38,6 +39,7 @@
     if ((self = [super initWithCoder:aDecoder])) {
         
         _viewsInitialLoad = YES;
+        _lockCenterButton = NO;
         
         self.contentSize = CGSizeMake(self.frame.size.width, self.frame.size.height);
         
@@ -64,6 +66,8 @@
         
         [self setShowsHorizontalScrollIndicator:NO];
         [self setShowsVerticalScrollIndicator:NO];
+        
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(recongfigureScrollViewDueToDeviceOrientationChange:) name:UIDeviceOrientationDidChangeNotification object:[UIDevice currentDevice]];
         
         self.delegate = self;
     }
@@ -111,7 +115,6 @@
     CGFloat buttonWidth;
     CGFloat buttonHeight;
     _rollingScrollViewButtons = [NSMutableArray array];
-    
     
     if (_layoutStyle == SShorizontalLayout) {
         
@@ -182,11 +185,22 @@
     [self moveButtonToViewCenter:_currentCenterButton animated:YES];
 }
 
+- (void)recongfigureScrollViewDueToDeviceOrientationChange:(NSNotification *)notification
+{
+    _lockCenterButton = YES;
+}
+
 - (void)layoutSubviews
 {
     [super layoutSubviews];
     
     if ([_rollingScrollViewButtonTitles count] > 0) {
+        
+        if (_lockCenterButton) {
+            [self moveButtonToViewCenter:_currentCenterButton animated:NO];
+            _lockCenterButton = NO;
+        }
+        
         [self recenterIfNecessary];
         [self tileContentInVisibleBounds];
         [self configureCenterButton:[self getCenterButton]];
@@ -222,7 +236,7 @@
     if (centerButton != _currentCenterButton) {
         
         _currentCenterButton = centerButton;
-
+        
         for (UIButton *button in _visibleButtons) {
             [button setBackgroundColor:self.notCenterButtonBackgroundColor];
             [button setBackgroundImage:self.notCenterButtonBackgroundImage forState:UIControlStateNormal];
@@ -319,7 +333,7 @@
                 button.center = [self convertPoint:center toView:_buttonContainerView];
             }
         }
-
+        
     } else {
         
         CGPoint currentOffset = [self contentOffset];
@@ -360,14 +374,19 @@
     }
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
+- (void)dealloc
 {
-    // Drawing code
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
-*/
+
+/*
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect
+ {
+ // Drawing code
+ }
+ */
 
 #pragma mark - Label Tiling
 
