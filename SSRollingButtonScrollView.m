@@ -32,6 +32,9 @@
     NSTimeInterval _lastTimeCapture;
     CGFloat _scrollVelocity;
     UIButton *_currentCenterButton;
+    
+    CGFloat _width;
+    CGFloat _height;
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -67,7 +70,9 @@
         [self setShowsHorizontalScrollIndicator:NO];
         [self setShowsVerticalScrollIndicator:NO];
         
-        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(recongfigureScrollViewDueToDeviceOrientationChange:) name:UIDeviceOrientationDidChangeNotification object:[UIDevice currentDevice]];
+        //
+        _width = self.bounds.size.width;
+        _height = self.bounds.size.height;
         
         self.delegate = self;
     }
@@ -185,13 +190,15 @@
     [self moveButtonToViewCenter:_currentCenterButton animated:YES];
 }
 
-- (void)recongfigureScrollViewDueToDeviceOrientationChange:(NSNotification *)notification
-{
-    _lockCenterButton = YES;
-}
-
 - (void)layoutSubviews
 {
+    // If change in view size (typically due to device rotation), prevent center button from changing.
+    if (_width != self.bounds.size.width || _height != self.bounds.size.height) {
+        _width = self.bounds.size.width;
+        _height = self.bounds.size.height;
+        _lockCenterButton = YES;
+    }
+    
     [super layoutSubviews];
     
     if ([_rollingScrollViewButtonTitles count] > 0) {
@@ -373,20 +380,6 @@
         [self.ssRollingButtonScrollViewDelegate rollingScrollViewButtonPushed:sender ssRollingButtonScrollView:self];
     }
 }
-
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-/*
- // Only override drawRect: if you perform custom drawing.
- // An empty implementation adversely affects performance during animation.
- - (void)drawRect:(CGRect)rect
- {
- // Drawing code
- }
- */
 
 #pragma mark - Label Tiling
 
