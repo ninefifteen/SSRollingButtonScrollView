@@ -53,17 +53,17 @@ typedef enum {
 // Optional. All the properties below have default settings and only need
 // to be set if the user desires to change the the default appearance and/or
 // functionality.  If set by user, must be set before calling "createButtonArrayWithTitles:".
-@property (nonatomic, strong) UIFont *buttonNotCenterFont;
-@property (nonatomic, strong) UIFont *buttonCenterFont;
+@property (strong, nonatomic) UIFont *buttonNotCenterFont;
+@property (strong, nonatomic) UIFont *buttonCenterFont;
 @property (nonatomic) CGFloat fixedButtonWidth;
 @property (nonatomic) CGFloat fixedButtonHeight;
 @property (nonatomic) CGFloat spacingBetweenButtons;
-@property (nonatomic, strong) UIColor *notCenterButtonTextColor;
-@property (nonatomic, strong) UIColor *centerButtonTextColor;
-@property (nonatomic, strong) UIColor *notCenterButtonBackgroundColor;
-@property (nonatomic, strong) UIColor *centerButtonBackgroundColor;
-@property (nonatomic, strong) UIImage *notCenterButtonBackgroundImage;
-@property (nonatomic, strong) UIImage *centerButtonBackgroundImage;
+@property (strong, nonatomic) UIColor *notCenterButtonTextColor;
+@property (strong, nonatomic) UIColor *centerButtonTextColor;
+@property (strong, nonatomic) UIColor *notCenterButtonBackgroundColor;
+@property (strong, nonatomic) UIColor *centerButtonBackgroundColor;
+@property (strong, nonatomic) UIImage *notCenterButtonBackgroundImage;
+@property (strong, nonatomic) UIImage *centerButtonBackgroundImage;
 @property (nonatomic) BOOL stopOnCenter;
 @property (nonatomic) BOOL centerPushedButtons;
 @property (nonatomic) BOOL playSound;
