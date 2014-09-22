@@ -63,12 +63,12 @@
 
 - (void)rollingScrollViewButtonPushed:(UIButton *)button ssRollingButtonScrollView:(SSRollingButtonScrollView *)rollingButtonScrollView
 {
-    NSLog(@"%@", button.titleLabel.text);
+    NSLog(@"pushed: %@", button.titleLabel.text);
 }
 
 - (void)rollingScrollViewButtonIsInCenter:(UIButton *)button ssRollingButtonScrollView:(SSRollingButtonScrollView *)rollingButtonScrollView
 {
-    NSLog(@"%@", button.titleLabel.text);
+    NSLog(@"center: %@", button.titleLabel.text);
 }
 
 @end
