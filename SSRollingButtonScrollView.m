@@ -214,8 +214,35 @@
         
         if (_viewsInitialLoad) {
             [self moveButtonToViewCenter:_currentCenterButton animated:NO];
-            [self tileContentInVisibleBounds];
+            [self initializeAllButtonsCenter];
             _viewsInitialLoad = NO;
+        }
+    }
+}
+
+-(void)initializeAllButtonsCenter
+{
+    if (_layoutStyle == SShorizontalLayout) {
+        CGFloat rightEdge = CGRectGetMaxX([[_visibleButtons lastObject] frame]);
+        for (NSInteger i=_visibleButtons.count; i<_rollingScrollViewButtons.count;i++) {
+            rightEdge += self.spacingBetweenButtons;
+            UIButton* button = [_rollingScrollViewButtons objectAtIndex:i];
+            CGRect frame = [button frame];
+            frame.origin.x = rightEdge;
+            frame.origin.y = ([_buttonContainerView bounds].size.height - frame.size.height) / 2.0f;
+            [button setFrame:frame];
+            rightEdge = CGRectGetMaxX([button frame]);
+        }
+    } else {
+        CGFloat bottomEdge = CGRectGetMaxX([[_visibleButtons lastObject] frame]);
+        for (NSInteger i=_visibleButtons.count; i<_rollingScrollViewButtons.count;i++) {
+            bottomEdge += self.spacingBetweenButtons;
+            UIButton* button = [_rollingScrollViewButtons objectAtIndex:i];
+            CGRect frame = [button frame];
+            frame.origin.x = ([_buttonContainerView bounds].size.width - frame.size.width) / 2.0f;
+            frame.origin.y = bottomEdge;
+            [button setFrame:frame];
+            bottomEdge = CGRectGetMaxX([button frame]);
         }
     }
 }
